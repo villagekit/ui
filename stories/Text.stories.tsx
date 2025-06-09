@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Text, type TextProps, textTheme } from '../src/components/Text.js'
-import { useTheme } from '../src/index.js'
+import { useTheme } from '../src'
+import { Text, type TextProps, textTheme } from '../src/components/Text'
 
 export default {
   component: Text,

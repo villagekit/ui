@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Input } from '../src/components/Input.js'
+import { Input } from '../src/components/Input'
 
 export default {
   component: Input,

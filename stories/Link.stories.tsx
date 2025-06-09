@@ -1,7 +1,7 @@
 import { VStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Link, type LinkProps, linkTheme } from '../src/components/Link.js'
+import { Link, type LinkProps, linkTheme } from '../src/components/Link'
 
 export default {
   component: Link,

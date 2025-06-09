@@ -6,7 +6,7 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-} from '../src/components/Accordion.js'
+} from '../src/components/Accordion'
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,

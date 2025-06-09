@@ -1,7 +1,7 @@
 import { Box, HStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Text, useTheme } from '../src/index.js'
+import { Text, useTheme } from '../src/index'
 
 export default {
   title: 'ui/Theme/Transitions',

@@ -7,7 +7,7 @@ import {
   NumberInputField,
   type NumberInputProps,
   NumberInputStepper,
-} from '../src/components/NumberInput.js'
+} from '../src/components/NumberInput'
 
 export default {
   component: NumberInput,

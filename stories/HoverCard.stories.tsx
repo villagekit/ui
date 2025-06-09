@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { HoverCard } from '../src/components/HoverCard.js'
+import { HoverCard } from '../src/components/HoverCard'
 
 export default {
   component: HoverCard,

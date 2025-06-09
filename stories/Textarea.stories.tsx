@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Textarea } from '../src/components/Textarea.js'
+import { Textarea } from '../src/components/Textarea'
 
 export default {
   component: Textarea,

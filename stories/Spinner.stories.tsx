@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Spinner } from '../src/components/Spinner.js'
+import { Spinner } from '../src/components/Spinner'
 
 export default {
   component: Spinner,

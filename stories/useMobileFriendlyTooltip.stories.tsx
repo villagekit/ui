@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { FaIceCream } from 'react-icons/fa'
 
-import { useMobileFriendlyTooltip } from '../src/hooks/useMobileFriendlyTooltip.js'
-import { Box, Icon, Tooltip } from '../src/index.js'
+import { Box, Icon, Tooltip } from '../src'
+import { useMobileFriendlyTooltip } from '../src/hooks/useMobileFriendlyTooltip'
 
 export default {
   title: 'ui/Helpers/UseMobileFriendlyTooltip',

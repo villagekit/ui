@@ -2,7 +2,7 @@ import { HStack, VStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
-import { NavLink, type NavLinkProps, navLinkTheme } from '../src/components/NavLink.js'
+import { NavLink, type NavLinkProps, navLinkTheme } from '../src/components/NavLink'
 
 export default {
   component: NavLink,

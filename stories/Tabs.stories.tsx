@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '../src/components/Tabs.js'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '../src/components/Tabs'
 
 export default {
   component: Tabs,

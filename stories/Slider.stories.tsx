@@ -6,7 +6,7 @@ import {
   type SliderProps,
   SliderThumb,
   SliderTrack,
-} from '../src/components/Slider.js'
+} from '../src/components/Slider'
 
 const meta: Meta<typeof Slider> = {
   component: Slider,

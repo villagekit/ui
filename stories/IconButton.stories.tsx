@@ -2,9 +2,9 @@ import { HStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { FaSearch } from 'react-icons/fa'
 
-import { buttonTheme } from '../src/components/Button.js'
-import { IconButton, type IconButtonProps } from '../src/components/IconButton.js'
-import { useTheme } from '../src/index.js'
+import { buttonTheme } from '../src/components/Button'
+import { IconButton, type IconButtonProps } from '../src/components/IconButton'
+import { useTheme } from '../src/index'
 
 export default {
   component: IconButton,
