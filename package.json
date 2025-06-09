@@ -1,0 +1,56 @@
+{
+  "name": "@villagekit/ui",
+  "version": "0.7.2",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "source": "./src/index.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["./src", "./dist"],
+  "sideEffects": false,
+  "scripts": {
+    "deps": "depcheck",
+    "build": "tsup src",
+    "lint": "biome check .",
+    "publint": "publint",
+    "format": "biome check --apply .",
+    "format:unsafe": "biome check --apply-unsafe .",
+    "test": "pnpm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/villagekit/ui.git"
+  },
+  "author": "Michael Williams <hello@mikey.nz>",
+  "license": "EUPL-1.2",
+  "bugs": {
+    "url": "https://github.com/villagekit/ui/issues"
+  },
+  "homepage": "https://github.com/villagekit/ui#readme",
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/react-types": "^2.0.7",
+    "@chakra-ui/skip-nav": "^2.1.0",
+    "@chakra-ui/theme": "^3.3.1",
+    "@chakra-ui/utils": "^2.0.15",
+    "@ctrl/tinycolor": "^4.1.0",
+    "lodash-es": "^4.17.21",
+    "react-icons": "^5.2.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.165.0",
+    "@storybook/react": "^8.1.6"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1"
+  },
+  "packageManager": "pnpm@9.9.0"
+}
