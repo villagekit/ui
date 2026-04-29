@@ -1,3 +1,5 @@
+'use client'
+
 import { useBreakpointValue } from '@chakra-ui/react'
 import { useMemo } from 'react'
 import { useTheme } from './useTheme'
