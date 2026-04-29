@@ -1,16 +1,10 @@
 'use client'
 
-import { Link as BaseLink, type LinkProps as BaseLinkProps } from '@chakra-ui/react'
+import { Link as BaseLink, type LinkProps as BaseLinkProps, defineRecipe } from '@chakra-ui/react'
 import { forwardRef } from 'react'
 
-export interface LinkProps {
+export interface LinkProps extends Omit<BaseLinkProps, 'variant' | 'colorPalette'> {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'paragraph'
-  onClick?: BaseLinkProps['onClick']
-  href?: BaseLinkProps['href']
-  isExternal?: BaseLinkProps['isExternal']
-  as?: BaseLinkProps['as']
-  sx?: BaseLinkProps['sx']
-  children?: React.ReactNode | Array<React.ReactNode>
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(props, ref) {
@@ -19,41 +13,32 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(props
     e.preventDefault()
   }
 
-  // @ts-ignore
-  return <BaseLink ref={ref} onMouseDown={handleMouseDown} {...props} />
+  return <BaseLink ref={ref} onMouseDown={handleMouseDown} {...(props as BaseLinkProps)} />
 })
 
-export const linkTheme = {
-  baseStyle: {
+export const linkRecipe = defineRecipe({
+  base: {
     outline: 'none',
     borderRadius: 'md',
-
     _hover: {
       color: 'primary.700',
       textDecoration: 'none',
     },
   },
   variants: {
-    primary: {
-      color: 'accentA.600',
-    },
-    secondary: {
-      color: 'gray.900',
-    },
-    tertiary: {
-      color: 'gray.700',
-    },
-    paragraph: {
-      color: 'accentA.800',
-      textDecoration: 'underline',
-      textUnderlineOffset: 2,
-
-      _hover: {
+    variant: {
+      primary: { color: 'accentA.600' },
+      secondary: { color: 'gray.900' },
+      tertiary: { color: 'gray.700' },
+      paragraph: {
+        color: 'accentA.800',
         textDecoration: 'underline',
+        textUnderlineOffset: '2px',
+        _hover: { textDecoration: 'underline' },
       },
     },
   },
-  defaultProps: {
+  defaultVariants: {
     variant: 'primary',
   },
-}
+})

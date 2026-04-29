@@ -1,84 +1,69 @@
 'use client'
 
-import { useStyleConfig } from '@chakra-ui/react'
+import { defineRecipe, useRecipe } from '@chakra-ui/react'
 import { type KeyboardEvent, forwardRef } from 'react'
 
 import { Link, type LinkProps } from './Link'
 
-export interface NavLinkProps
-  extends Pick<LinkProps, 'as' | 'href' | 'isExternal' | 'onClick' | 'children'> {
+export interface NavLinkProps extends Omit<LinkProps, 'variant'> {
   isSelected?: boolean
   size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs'
   variant?: 'heading' | 'text'
   onKeyDown?: (ev: KeyboardEvent) => void
-  tabIndex?: string
 }
 
 export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(props, ref) {
-  const { size, variant, isSelected, ...rest } = props
+  const { size, variant, isSelected, css, ...rest } = props
 
-  const styles = useStyleConfig('NavLink', { size, variant })
+  const recipe = useRecipe({ recipe: navLinkRecipe })
+  const styles = recipe({ size, variant })
 
   return (
     <Link
       ref={ref}
       variant="secondary"
-      sx={{
-        ...styles,
-
-        position: 'relative',
-
-        ...(isSelected
-          ? {
-              '&::after': {
-                borderBottomWidth: 2,
-                borderTopWidth: 0,
-                borderLeftWidth: 0,
-                borderRightWidth: 0,
-                borderColor: 'primary.500',
-                borderStyle: 'dashed',
-                bottom: 0,
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                width: '100%',
-              },
-            }
-          : {}),
-      }}
+      css={[
+        styles,
+        {
+          position: 'relative',
+          ...(isSelected
+            ? {
+                '&::after': {
+                  borderBottomWidth: '2px',
+                  borderColor: 'primary.500',
+                  borderStyle: 'dashed',
+                  bottom: 0,
+                  content: '""',
+                  display: 'block',
+                  position: 'absolute',
+                  width: '100%',
+                },
+              }
+            : {}),
+        },
+        css,
+      ]}
       {...rest}
     />
   )
 })
 
-export const navLinkTheme = {
-  sizes: {
-    xl: {
-      fontSize: '3xl',
-    },
-    lg: {
-      fontSize: '2xl',
-    },
-    md: {
-      fontSize: 'xl',
-    },
-    sm: {
-      fontSize: 'lg',
-    },
-    xs: {
-      fontSize: 'md',
-    },
-  },
+export const navLinkRecipe = defineRecipe({
   variants: {
-    text: {
-      fontFamily: 'body',
+    size: {
+      xl: { fontSize: '3xl' },
+      lg: { fontSize: '2xl' },
+      md: { fontSize: 'xl' },
+      sm: { fontSize: 'lg' },
+      xs: { fontSize: 'md' },
     },
-    heading: {
-      fontFamily: 'heading',
+    variant: {
+      text: { fontFamily: 'body' },
+      heading: { fontFamily: 'heading' },
     },
   },
-  defaultProps: {
+  defaultVariants: {
     size: 'md',
     variant: 'heading',
   },
-}
+})

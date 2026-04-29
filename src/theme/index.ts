@@ -1,52 +1,65 @@
-import { extendTheme } from '@chakra-ui/react'
-import { accordionTheme as Accordion } from '../components/Accordion'
-import { badgeTheme as Badge } from '../components/Badge'
-import { buttonTheme as Button } from '../components/Button'
-import { checkboxTheme as Checkbox } from '../components/Checkbox'
-import { formLabelTheme as FormLabel } from '../components/FormLabel'
-import { headingTheme as Heading } from '../components/Heading'
-import { linkTheme as Link } from '../components/Link'
-import { navLinkTheme as NavLink } from '../components/NavLink'
-import { sliderTheme as Slider } from '../components/Slider'
-import { switchTheme as Switch } from '../components/Switch'
-import { tableTheme as Table } from '../components/Table'
-import { tabsTheme as Tabs } from '../components/Tabs'
-import { textTheme as Text } from '../components/Text'
-import { accentA, accentB, outlineColor, primary, wood } from './colors'
+import { createSystem, defaultConfig, defineConfig, defineTokens } from '@chakra-ui/react'
 
-export const theme = extendTheme({
-  colors: {
-    accentA,
-    accentB,
-    outlineColor,
-    primary,
-    wood,
-  },
-  components: {
-    Accordion,
-    Badge,
-    Button,
-    Checkbox,
-    FormLabel,
-    Heading,
-    Link,
-    NavLink,
-    Slider,
-    Switch,
-    Table,
-    Tabs,
-    Text,
-  },
-  fonts: {
-    body: 'Bitter',
-    heading: 'Fredoka One',
-  },
-  shadows: {
-    outline: `0 0 0 2px ${outlineColor}`,
-    outlineLarge: `0 0 0 4px ${outlineColor}`,
+import { accordionRecipe } from '../components/Accordion'
+import { badgeRecipe } from '../components/Badge'
+import { buttonRecipe } from '../components/Button'
+import { checkboxRecipe } from '../components/Checkbox'
+import { fieldRecipe } from '../components/FormLabel'
+import { headingRecipe } from '../components/Heading'
+import { linkRecipe } from '../components/Link'
+import { navLinkRecipe } from '../components/NavLink'
+import { sliderRecipe } from '../components/Slider'
+import { switchRecipe } from '../components/Switch'
+import { tableRecipe } from '../components/Table'
+import { tabsRecipe } from '../components/Tabs'
+import { textRecipe } from '../components/Text'
+import { colorSemanticTokens, colorTokens } from './colors'
+
+const systemFontFallback =
+  '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+
+const fonts = defineTokens.fonts({
+  body: { value: `Bitter, ${systemFontFallback}` },
+  heading: { value: `"Fredoka One", ${systemFontFallback}` },
+})
+
+const shadows = defineTokens.shadows({
+  outline: { value: '0 0 0 2px {colors.outlineColor}' },
+  outlineLarge: { value: '0 0 0 4px {colors.outlineColor}' },
+})
+
+const config = defineConfig({
+  theme: {
+    tokens: {
+      colors: colorTokens,
+      fonts,
+      shadows,
+    },
+    semanticTokens: {
+      colors: colorSemanticTokens,
+    },
+    recipes: {
+      badge: badgeRecipe,
+      button: buttonRecipe,
+      heading: headingRecipe,
+      link: linkRecipe,
+      navLink: navLinkRecipe,
+      text: textRecipe,
+    },
+    slotRecipes: {
+      accordion: accordionRecipe,
+      checkbox: checkboxRecipe,
+      field: fieldRecipe,
+      slider: sliderRecipe,
+      switch: switchRecipe,
+      table: tableRecipe,
+      tabs: tabsRecipe,
+    },
   },
 })
 
-export type Theme = typeof theme
+export const system = createSystem(defaultConfig, config)
 
-export default theme
+export const theme = system
+
+export type Theme = typeof system

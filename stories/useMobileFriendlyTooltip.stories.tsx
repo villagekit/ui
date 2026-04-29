@@ -15,13 +15,15 @@ export const UseMobileFriendlyTooltip: Story = {
     const { onPointerEnterTooltip, onPointerLeaveTooltip, showTooltip } = useMobileFriendlyTooltip()
 
     return (
-      <Tooltip label="Mobile friendly tooltip!" isOpen={showTooltip}>
+      <Tooltip label="Mobile friendly tooltip!" open={showTooltip}>
         <Box
           onPointerEnter={onPointerEnterTooltip}
           onPointerLeave={onPointerLeaveTooltip}
-          sx={{ width: 'max-content' }}
+          width="max-content"
         >
-          <Icon as={FaIceCream} sx={{ color: 'primary.300' }} />
+          <Icon color="primary.300">
+            <FaIceCream />
+          </Icon>
         </Box>
       </Tooltip>
     )

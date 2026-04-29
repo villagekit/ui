@@ -1,17 +1,21 @@
 'use client'
 
-import { Spinner as BaseSpinner } from '@chakra-ui/react'
-import { useTheme } from '../hooks/useTheme'
+import { Spinner as BaseSpinner, type SpinnerProps as BaseSpinnerProps } from '@chakra-ui/react'
+import { forwardRef } from 'react'
 
-export interface SpinnerProps {
+export interface SpinnerProps extends Omit<BaseSpinnerProps, 'colorPalette'> {
   colorScheme?: 'primary' | 'accentA'
-  size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs'
 }
 
-export function Spinner(props: SpinnerProps) {
-  const { colorScheme = 'accentA' } = props
+export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(props, ref) {
+  const { colorScheme = 'accentA', ...rest } = props
 
-  const { colors } = useTheme()
-
-  return <BaseSpinner color={colors[colorScheme][400]} emptyColor="gray.200" {...props} />
-}
+  return (
+    <BaseSpinner
+      ref={ref}
+      color={`${colorScheme}.400`}
+      css={{ '--spinner-track-color': 'colors.gray.200' }}
+      {...rest}
+    />
+  )
+})

@@ -1,8 +1,7 @@
-import { HStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { FaLink } from 'react-icons/fa'
 
-import { buttonTheme } from '../src/components/Button'
+import { HStack } from '../src'
 import { LinkIconButton, type LinkIconButtonProps } from '../src/components/LinkIconButton'
 
 export default {
@@ -13,6 +12,7 @@ export default {
 type Story = StoryObj<typeof LinkIconButton>
 
 const exampleHref = 'https://gridkit.nz/'
+const variants = ['primary', 'secondary', 'tertiary', 'toolbar'] as const
 
 export const Base: Story = {
   args: {
@@ -26,12 +26,12 @@ export const Variants: Story = {
   render() {
     return (
       <HStack>
-        {Object.keys(buttonTheme.variants).map((variant) => (
+        {variants.map((variant) => (
           <LinkIconButton
             key={variant}
             href={exampleHref}
             isExternal
-            aria-label="Link"
+            title="Link"
             icon={<FaLink />}
             variant={variant as LinkIconButtonProps['variant']}
           />

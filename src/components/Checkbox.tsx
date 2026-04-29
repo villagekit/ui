@@ -1,22 +1,28 @@
-export type { CheckboxProps } from '@chakra-ui/react'
-export { Checkbox } from '@chakra-ui/react'
+import { Checkbox, defineSlotRecipe } from '@chakra-ui/react'
 
-export const checkboxTheme = {
-  baseStyle: {
+export type {
+  CheckboxRootProps as CheckboxProps,
+  CheckboxControlProps,
+  CheckboxLabelProps,
+  CheckboxIndicatorProps,
+} from '@chakra-ui/react'
+export { Checkbox }
+
+export const checkboxRecipe = defineSlotRecipe({
+  slots: ['root', 'control', 'label', 'indicator'],
+  base: {
     control: {
       _checked: {
+        backgroundColor: 'primary.300',
+        borderColor: 'primary.300',
         _hover: {
           backgroundColor: 'primary.300',
           borderColor: 'primary.300',
         },
-
-        backgroundColor: 'primary.300',
-        borderColor: 'primary.300',
       },
     },
-
-    icon: {
+    indicator: {
       background: 'primary.300',
     },
   },
-}
+})

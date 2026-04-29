@@ -1,8 +1,6 @@
-import { HStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { capitalize } from 'lodash-es'
 
-import { buttonTheme } from '../src/components/Button'
+import { HStack } from '../src'
 import { LinkButton, type LinkButtonProps } from '../src/components/LinkButton'
 
 export default {
@@ -13,6 +11,7 @@ export default {
 type Story = StoryObj<typeof LinkButton>
 
 const exampleHref = 'https://gridkit.nz/'
+const variants = ['primary', 'secondary', 'tertiary', 'toolbar'] as const
 
 export const Base: Story = {
   args: {
@@ -26,14 +25,14 @@ export const Variants: Story = {
   render() {
     return (
       <HStack>
-        {Object.keys(buttonTheme.variants).map((variant) => (
+        {variants.map((variant) => (
           <LinkButton
             key={variant}
             href={exampleHref}
             isExternal
             variant={variant as LinkButtonProps['variant']}
           >
-            {capitalize(variant)}
+            {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </LinkButton>
         ))}
       </HStack>

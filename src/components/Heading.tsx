@@ -1,23 +1,21 @@
 'use client'
 
-import { Heading as BaseHeading, type HeadingProps as BaseHeadingProps } from '@chakra-ui/react'
+import {
+  Heading as BaseHeading,
+  type HeadingProps as BaseHeadingProps,
+  defineRecipe,
+} from '@chakra-ui/react'
+import { forwardRef } from 'react'
 
-export interface HeadingProps {
-  as?: React.ComponentType | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  id?: BaseHeadingProps['id']
-  size?: BaseHeadingProps['size']
-  sx?: BaseHeadingProps['sx']
-  children?: React.ReactNode | Array<React.ReactNode>
-}
+export interface HeadingProps extends BaseHeadingProps {}
 
-export function Heading(props: HeadingProps) {
-  const { children, ...restProps } = props
+export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(props, ref) {
+  return <BaseHeading ref={ref} {...props} />
+})
 
-  return <BaseHeading {...restProps}>{children}</BaseHeading>
-}
-
-export const headingTheme = {
-  baseStyle: {
+export const headingRecipe = defineRecipe({
+  base: {
+    fontFamily: 'heading',
     fontWeight: 'normal',
   },
-}
+})

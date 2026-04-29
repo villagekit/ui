@@ -1,31 +1,33 @@
-export type { AccordionProps } from '@chakra-ui/react'
-export {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-} from '@chakra-ui/react'
+import { Accordion, defineSlotRecipe } from '@chakra-ui/react'
 
-export const accordionTheme = {
-  baseStyle: {
-    button: {
+export type {
+  AccordionItemContentProps,
+  AccordionItemIndicatorProps,
+  AccordionItemProps,
+  AccordionItemTriggerProps,
+  AccordionRootProps,
+} from '@chakra-ui/react'
+export { Accordion }
+
+export const accordionRecipe = defineSlotRecipe({
+  slots: ['root', 'item', 'itemTrigger', 'itemContent', 'itemBody', 'itemIndicator'],
+  base: {
+    item: {
+      borderStyle: 'dashed',
+      borderTopWidth: '2px',
+      '&:last-of-type': {
+        borderBottomWidth: '2px',
+      },
+    },
+    itemTrigger: {
       display: 'flex',
       justifyContent: 'space-between',
-      paddingX: 2,
-      paddingY: 4,
+      paddingX: '2',
+      paddingY: '4',
     },
-    container: {
-      '&:last-of-type': {
-        borderBottomWidth: 2,
-      },
-
-      borderStyle: 'dashed',
-      borderTopWidth: 2,
-    },
-    panel: {
-      paddingX: 4,
-      paddingY: 4,
+    itemContent: {
+      paddingX: '4',
+      paddingY: '4',
     },
   },
-}
+})

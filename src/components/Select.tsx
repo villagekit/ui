@@ -1,18 +1,8 @@
-'use client'
+import { NativeSelect } from '@chakra-ui/react'
 
-import { Select as BaseSelect, type SelectProps as BaseSelectProps } from '@chakra-ui/react'
-import { useTheme } from '../hooks/useTheme'
+export type {
+  NativeSelectRootProps as SelectProps,
+  NativeSelectFieldProps,
+} from '@chakra-ui/react'
 
-export interface SelectProps
-  extends Pick<
-    BaseSelectProps,
-    'id' | 'role' | 'value' | 'defaultValue' | 'onChange' | 'sx' | 'children'
-  > {}
-
-export function Select(props: SelectProps) {
-  const {
-    colors: { outlineColor },
-  } = useTheme()
-
-  return <BaseSelect background="white" focusBorderColor={outlineColor} {...props} />
-}
+export const Select = NativeSelect

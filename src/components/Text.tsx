@@ -1,34 +1,25 @@
 'use client'
 
-import { Text as BaseText, type TextProps as BaseTextProps } from '@chakra-ui/react'
-import type { BaseProps } from '../types'
+import { Text as BaseText, type TextProps as BaseTextProps, defineRecipe } from '@chakra-ui/react'
+import { forwardRef } from 'react'
 
-export interface TextProps extends BaseProps {
-  as?: BaseTextProps['as']
-  fontSize?: BaseTextProps['fontSize']
+export interface TextProps extends BaseTextProps {
   variant?: 'primary' | 'secondary' | 'tertiary'
-  sx?: BaseTextProps['sx']
-  children?: React.ReactNode | Array<React.ReactNode>
 }
 
-export function Text(props: TextProps) {
-  // @ts-ignore
-  return <BaseText {...props} />
-}
+export const Text = forwardRef<HTMLParagraphElement, TextProps>(function Text(props, ref) {
+  return <BaseText ref={ref} {...props} />
+})
 
-export const textTheme = {
+export const textRecipe = defineRecipe({
   variants: {
-    primary: {
-      color: 'gray.900',
-    },
-    secondary: {
-      color: 'gray.700',
-    },
-    tertiary: {
-      color: 'gray.600',
+    variant: {
+      primary: { color: 'gray.900' },
+      secondary: { color: 'gray.700' },
+      tertiary: { color: 'gray.600' },
     },
   },
-  defaultProps: {
+  defaultVariants: {
     variant: 'primary',
   },
-}
+})

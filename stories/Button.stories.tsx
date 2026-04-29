@@ -1,10 +1,8 @@
-import { HStack, Icon } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { capitalize } from 'lodash-es'
 import { FaSearch } from 'react-icons/fa'
 
-import { useTheme } from '../src'
-import { Button, type ButtonProps, buttonTheme } from '../src/components/Button'
+import { HStack, Icon } from '../src'
+import { Button, type ButtonProps } from '../src/components/Button'
 
 const meta: Meta<ButtonProps> = {
   component: Button,
@@ -15,6 +13,9 @@ export default meta
 
 type Story = StoryObj<typeof Button>
 
+const sizes = ['xs', 'sm', 'md', 'lg'] as const
+const variants = ['primary', 'secondary', 'tertiary', 'toolbar'] as const
+
 export const Basic: Story = {
   args: {
     children: 'Button',
@@ -22,20 +23,24 @@ export const Basic: Story = {
 }
 
 export const WithIcon: Story = {
-  args: {
-    children: 'Button',
-    leftIcon: <Icon as={FaSearch} />,
+  render() {
+    return (
+      <Button>
+        <Icon>
+          <FaSearch />
+        </Icon>
+        Button
+      </Button>
+    )
   },
 }
 
 export const Sizes: Story = {
   render() {
-    const theme = useTheme()
-
     return (
       <HStack>
-        {Object.keys(theme.components.Button.sizes).map((size) => (
-          <Button key={size} size={size as ButtonProps['size']}>
+        {sizes.map((size) => (
+          <Button key={size} size={size}>
             Button {size}
           </Button>
         ))}
@@ -48,9 +53,9 @@ export const Variants: Story = {
   render() {
     return (
       <HStack>
-        {Object.keys(buttonTheme.variants).map((variant) => (
-          <Button key={variant} variant={variant as ButtonProps['variant']}>
-            {capitalize(variant)}
+        {variants.map((variant) => (
+          <Button key={variant} variant={variant}>
+            {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </Button>
         ))}
       </HStack>

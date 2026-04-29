@@ -9,7 +9,7 @@ interface useMobileFriendlyTooltipProps {
 export function useMobileFriendlyTooltip(pointerTimeout = 1000): useMobileFriendlyTooltipProps {
   const [showTooltip, setShowTooltip] = useState(false)
 
-  const timeout = useRef<number>()
+  const timeout = useRef<number | undefined>(undefined)
 
   const onPointerEnterTooltip = useCallback(() => {
     setShowTooltip(true)

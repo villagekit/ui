@@ -1,46 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import {
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  type NumberInputProps,
-  NumberInputStepper,
-} from '../src/components/NumberInput'
+import { NumberInput, type NumberInputProps } from '../src/components/NumberInput'
 
 export default {
-  component: NumberInput,
+  component: NumberInput.Root,
   title: 'ui/NumberInput',
-} satisfies Meta<typeof NumberInput>
+} satisfies Meta<typeof NumberInput.Root>
 
-type Story = StoryObj<typeof NumberInput>
+type Story = StoryObj<typeof NumberInput.Root>
 
 const renderBase = (props: NumberInputProps) => (
-  <NumberInput {...props}>
-    <NumberInputField />
-  </NumberInput>
+  <NumberInput.Root {...props}>
+    <NumberInput.Input />
+  </NumberInput.Root>
 )
 
 export const Base: Story = {
   render: renderBase,
 }
 
-export const Flushed: Story = {
-  args: {
-    variant: 'flushed',
-  },
-  render: renderBase,
-}
-
 const renderStepper = (props: NumberInputProps) => (
-  <NumberInput {...props}>
-    <NumberInputField />
-    <NumberInputStepper>
-      <NumberIncrementStepper />
-      <NumberDecrementStepper />
-    </NumberInputStepper>
-  </NumberInput>
+  <NumberInput.Root {...props}>
+    <NumberInput.Input />
+    <NumberInput.Control>
+      <NumberInput.IncrementTrigger />
+      <NumberInput.DecrementTrigger />
+    </NumberInput.Control>
+  </NumberInput.Root>
 )
 
 export const WithStepper: Story = {

@@ -1,10 +1,11 @@
-import { HStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { FaSearch } from 'react-icons/fa'
 
-import { buttonTheme } from '../src/components/Button'
+import { HStack } from '../src'
 import { IconButton, type IconButtonProps } from '../src/components/IconButton'
-import { useTheme } from '../src/index'
+
+const sizes = ['xs', 'sm', 'md', 'lg'] as const
+const variants = ['primary', 'secondary', 'tertiary', 'toolbar'] as const
 
 export default {
   component: IconButton,
@@ -22,11 +23,9 @@ export const Basic: Story = {
 
 export const Sizes: Story = {
   render() {
-    const theme = useTheme()
-
     return (
       <HStack>
-        {Object.keys(theme.components.Button.sizes).map((size) => (
+        {sizes.map((size) => (
           <IconButton
             key={size}
             title="Search"
@@ -43,13 +42,8 @@ export const Variants: Story = {
   render() {
     return (
       <HStack>
-        {Object.keys(buttonTheme.variants).map((variant) => (
-          <IconButton
-            key={variant}
-            title="Search"
-            icon={<FaSearch />}
-            variant={variant as IconButtonProps['variant']}
-          />
+        {variants.map((variant) => (
+          <IconButton key={variant} title="Search" icon={<FaSearch />} variant={variant} />
         ))}
       </HStack>
     )

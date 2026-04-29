@@ -1,7 +1,7 @@
-import { VStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Link, type LinkProps, linkTheme } from '../src/components/Link'
+import { VStack } from '../src'
+import { Link, type LinkProps } from '../src/components/Link'
 
 export default {
   component: Link,
@@ -11,12 +11,13 @@ export default {
 type Story = StoryObj<typeof Link>
 
 const exampleHref = 'https://gridkit.nz/'
+const variants = ['primary', 'secondary', 'tertiary', 'paragraph'] as const
 
 export const Base: Story = {
   args: {
     children: 'Link goes here',
     href: exampleHref,
-    isExternal: true,
+    target: '_blank',
   },
 }
 
@@ -24,11 +25,11 @@ export const Variants: Story = {
   render() {
     return (
       <VStack alignItems="flex-start">
-        {Object.keys(linkTheme.variants).map((variant) => (
+        {variants.map((variant) => (
           <Link
             key={variant}
             href={exampleHref}
-            isExternal
+            target="_blank"
             variant={variant as LinkProps['variant']}
           >
             Link with variant {variant}

@@ -2,24 +2,24 @@
 
 import {
   Heading,
-  HoverCard,
-  type HoverCardProps,
   Icon,
   LinkBox,
   LinkOverlay,
   type LinkOverlayProps,
   Stack,
   Text,
-} from '../index'
+} from '@chakra-ui/react'
+import type { ComponentType } from 'react'
+import { HoverCard, type HoverCardProps } from './HoverCard'
 
 export interface LinkCardProps {
   as?: HoverCardProps['as']
   title: string
-  icon: React.ComponentType
+  icon: ComponentType
   description: string
   href: LinkOverlayProps['href']
-  isExternal?: LinkOverlayProps['isExternal']
-  linkComponent?: any
+  isExternal?: boolean
+  linkComponent?: LinkOverlayProps['as']
 }
 
 export function LinkCard(props: LinkCardProps) {
@@ -35,27 +35,25 @@ export function LinkCard(props: LinkCardProps) {
 
   return (
     <LinkBox>
-      <HoverCard
-        as={as}
-        aria-label={title}
-        sx={{ height: '64', paddingX: 4, paddingY: 8, width: '3xs' }}
-      >
+      <HoverCard as={as} aria-label={title} height="64" paddingX="4" paddingY="8" width="3xs">
         <Stack
           direction="column"
           alignItems="center"
           justifyContent="space-around"
-          spacing="4"
+          gap="4"
           height="100%"
         >
-          <Icon as={IconComponent} w="8" h="8" />
+          <Icon w="8" h="8">
+            <IconComponent />
+          </Icon>
 
-          <Heading size="md" sx={{ textAlign: 'center' }}>
+          <Heading size="md" textAlign="center">
             {title}
           </Heading>
 
-          <Text sx={{ textAlign: 'center' }}>{description}</Text>
+          <Text textAlign="center">{description}</Text>
 
-          <LinkOverlay as={LinkComponent} href={href} isExternal={isExternal} />
+          <LinkOverlay as={LinkComponent} href={href} target={isExternal ? '_blank' : undefined} />
         </Stack>
       </HoverCard>
     </LinkBox>

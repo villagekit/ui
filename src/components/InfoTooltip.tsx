@@ -1,34 +1,34 @@
 'use client'
 
+import { Box, Icon } from '@chakra-ui/react'
+import type { ReactNode } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
-import { Box, Icon, Tooltip, useMobileFriendlyTooltip } from '../index'
-import type { TooltipProps } from './Tooltip'
+import { useMobileFriendlyTooltip } from '../hooks/useMobileFriendlyTooltip'
+import { Tooltip } from './Tooltip'
 
-export interface InfoTooltipProps extends Partial<TooltipProps> {
-  label: React.ReactNode
+export interface InfoTooltipProps {
+  label: ReactNode
   pointerTimeout?: number
 }
 
 export function InfoTooltip(props: InfoTooltipProps) {
-  const { pointerTimeout, ...rest } = props
+  const { label, pointerTimeout } = props
 
   const { onPointerEnterTooltip, onPointerLeaveTooltip, showTooltip } =
     useMobileFriendlyTooltip(pointerTimeout)
 
   return (
-    <Tooltip isOpen={showTooltip} {...rest}>
+    <Tooltip label={label} open={showTooltip}>
       <Box onPointerEnter={onPointerEnterTooltip} onPointerLeave={onPointerLeaveTooltip}>
         <Icon
           aria-label="Tooltip"
-          as={FaInfoCircle}
-          sx={{
-            _hover: { color: 'primary.300' },
-
-            color: 'gray.300',
-            marginBottom: 1,
-            transitionDuration: 'slow',
-          }}
-        />
+          color="gray.300"
+          marginBottom="1"
+          transitionDuration="slow"
+          _hover={{ color: 'primary.300' }}
+        >
+          <FaInfoCircle />
+        </Icon>
       </Box>
     </Tooltip>
   )

@@ -1,7 +1,8 @@
-import { Box, HStack } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Text, useTheme } from '../src/index'
+import { Box, HStack, Text } from '../src'
+
+const durations = ['fast', 'normal', 'slow', 'slower'] as const
 
 export default {
   title: 'ui/Theme/Transitions',
@@ -18,22 +19,19 @@ function TransitionExample(props: TransitionExampleProps) {
 
   return (
     <Box
-      sx={{
-        flex: 1,
-        padding: 1,
-        height: '50',
-        backgroundColor: 'accentB.200',
-        borderRadius: 'xl',
-        boxShadow: 'md',
-        transitionDuration: duration,
-
-        _hover: {
-          cursor: 'pointer',
-          height: '150',
-        },
+      flex="1"
+      padding="1"
+      height="50px"
+      backgroundColor="accentB.200"
+      borderRadius="xl"
+      boxShadow="md"
+      transitionDuration={duration}
+      _hover={{
+        cursor: 'pointer',
+        height: '150px',
       }}
     >
-      <Text fontSize="sm" sx={{ textAlign: 'center' }}>
+      <Text fontSize="sm" textAlign="center">
         {duration}
       </Text>
     </Box>
@@ -42,11 +40,9 @@ function TransitionExample(props: TransitionExampleProps) {
 
 export const Transitions: Story = {
   render() {
-    const { transition } = useTheme()
-
     return (
-      <HStack alignItems="flex-start" sx={{ padding: 4 }}>
-        {Object.keys(transition.duration).map((duration) => (
+      <HStack alignItems="flex-start" padding="4">
+        {durations.map((duration) => (
           <TransitionExample key={duration} duration={duration} />
         ))}
       </HStack>
