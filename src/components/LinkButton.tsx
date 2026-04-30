@@ -15,7 +15,11 @@ export const LinkButton = forwardRef<HTMLButtonElement, LinkButtonProps>(
 
     return (
       <Button ref={ref} asChild {...rest}>
-        <Link href={href} target={isExternal ? '_blank' : undefined}>
+        <Link
+          href={href}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+        >
           {children}
         </Link>
       </Button>
