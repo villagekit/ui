@@ -9,6 +9,12 @@
       "import": "./src/index.ts",
       "default": "./src/index.ts"
     },
+    "./mdx": {
+      "types": "./src/mdx/index.ts",
+      "source": "./src/mdx/index.ts",
+      "import": "./src/mdx/index.ts",
+      "default": "./src/mdx/index.ts"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -17,6 +23,11 @@
         "types": "./dist/index.d.ts",
         "import": "./dist/index.js",
         "default": "./dist/index.js"
+      },
+      "./mdx": {
+        "types": "./dist/mdx/index.d.ts",
+        "import": "./dist/mdx/index.js",
+        "default": "./dist/mdx/index.js"
       },
       "./package.json": "./package.json"
     }
@@ -56,6 +67,7 @@
     "@storybook/addon-webpack5-compiler-swc": "^3.0.0",
     "@storybook/react": "^9.0.6",
     "@storybook/react-webpack5": "^9.0.6",
+    "@types/mdx": "^2.0.13",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@types/three": "^0.165.0",
