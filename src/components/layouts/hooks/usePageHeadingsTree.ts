@@ -86,10 +86,8 @@ function getNodeTreeFromFlatNodeList(roots: Roots, expanded: boolean): Array<Tre
   const tags: Array<HeadingTag> = ['H2', 'H3', 'H4', 'H5', 'H6']
 
   for (let i = tags.length - 1; i > 0; i -= 1) {
-    const parentTag = tags[i - 1]
     const currentTag = tags[i]
-    if (parentTag == null || currentTag == null) continue
-    const parents = roots[parentTag]
+    if (currentTag == null) continue
     const current = roots[currentTag]
 
     for (const childKey of Object.keys(current)) {
@@ -100,11 +98,25 @@ function getNodeTreeFromFlatNodeList(roots: Roots, expanded: boolean): Array<Tre
 
       const parentId = child.parentMap[child.parentMap.length - 1]
       if (parentId == null) continue
-      const parent = parents[parentId]
+
+      // Walk up from the immediate parent level so a skipped heading
+      // (e.g. H2 → H4) attaches to the nearest existing ancestor instead of crashing.
+      let parent: TreeRoot | undefined
+      for (let j = i - 1; j >= 0; j -= 1) {
+        const candidateTag = tags[j]
+        if (candidateTag == null) continue
+        const candidate = roots[candidateTag][parentId]
+        if (candidate != null) {
+          parent = candidate
+          break
+        }
+      }
+
       if (!parent) {
-        throw new Error(
-          'usePageHeadingsTree: a heading is missing a parent. You may have skipped a heading level.',
+        console.warn(
+          `usePageHeadingsTree: heading "${child.text}" (#${child.id}) is orphaned — skipping it in the table of contents.`,
         )
+        continue
       }
 
       parent.childrenCount += child.childNodes.length + 1

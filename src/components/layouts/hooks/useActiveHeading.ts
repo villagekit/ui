@@ -46,7 +46,9 @@ export function useActiveHeading(headingList: Array<string>): string | null {
     const observer = new IntersectionObserver(callback, { rootMargin: '0px 0px -40% 0px' })
 
     for (const heading of headingList) {
-      const el = document.querySelector(heading)
+      // getElementById sidesteps CSS-selector escaping for ids starting with a digit
+      // (e.g. "3d-printing-…") which would crash querySelector.
+      const el = document.getElementById(heading.replace(/^#/, ''))
       if (el != null) observer.observe(el)
     }
 
