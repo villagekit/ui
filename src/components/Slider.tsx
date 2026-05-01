@@ -1,4 +1,4 @@
-import { Slider, defineSlotRecipe } from '@chakra-ui/react'
+import { Slider } from '@chakra-ui/react'
 
 export type {
   SliderRootProps as SliderProps,
@@ -6,23 +6,3 @@ export type {
   SliderThumbProps,
 } from '@chakra-ui/react'
 export { Slider }
-
-export const sliderRecipe = defineSlotRecipe({
-  slots: [
-    'root',
-    'label',
-    'control',
-    'track',
-    'range',
-    'thumb',
-    'valueText',
-    'marker',
-    'markerGroup',
-    'markerIndicator',
-  ],
-  base: {
-    range: {
-      background: 'primary.300',
-    },
-  },
-})

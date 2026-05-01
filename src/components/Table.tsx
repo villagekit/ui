@@ -1,4 +1,4 @@
-import { Table, defineSlotRecipe } from '@chakra-ui/react'
+import { Table } from '@chakra-ui/react'
 
 export type {
   TableRootProps as TableProps,
@@ -11,12 +11,3 @@ export type {
   TableFooterProps,
 } from '@chakra-ui/react'
 export { Table }
-
-export const tableRecipe = defineSlotRecipe({
-  slots: ['root', 'header', 'body', 'footer', 'row', 'columnHeader', 'cell', 'caption'],
-  base: {
-    columnHeader: {
-      textTransform: 'none',
-    },
-  },
-})

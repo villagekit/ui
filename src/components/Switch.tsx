@@ -1,4 +1,4 @@
-import { Switch, defineSlotRecipe } from '@chakra-ui/react'
+import { Switch } from '@chakra-ui/react'
 
 export type {
   SwitchRootProps as SwitchProps,
@@ -7,14 +7,3 @@ export type {
   SwitchThumbProps,
 } from '@chakra-ui/react'
 export { Switch }
-
-export const switchRecipe = defineSlotRecipe({
-  slots: ['root', 'label', 'control', 'thumb', 'indicator'],
-  base: {
-    control: {
-      _checked: {
-        background: 'primary.300',
-      },
-    },
-  },
-})
