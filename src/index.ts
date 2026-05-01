@@ -49,7 +49,6 @@ export {
   Group,
   HStack,
   Icon,
-  Image,
   LinkBox,
   LinkOverlay,
   List,
@@ -79,7 +78,6 @@ export type {
   GridProps,
   HTMLChakraProps,
   IconProps,
-  ImageProps,
   LinkBoxProps,
   LinkOverlayProps,
   ListRootProps as ListProps,
@@ -128,3 +126,6 @@ export * from './components/layouts'
 
 // Navigation
 export * from './components/nav'
+
+// Media (Image, Video, MediaProvider)
+export * from './components/media'
