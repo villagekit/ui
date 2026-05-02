@@ -2,8 +2,8 @@
 export { Provider, type ProviderProps } from './Provider'
 
 // Theme
-export { system, theme, type Theme } from './theme'
-export { ChakraProvider } from '@chakra-ui/react'
+export { config, system, theme, type Theme } from './theme'
+export { ChakraProvider, createSystem, defaultConfig, defineConfig } from '@chakra-ui/react'
 
 // Custom components (Village Kit-flavoured)
 export { Accordion, type AccordionRootProps } from './components/Accordion'
@@ -44,6 +44,7 @@ export {
   CloseButton,
   Container,
   Drawer,
+  Field,
   Flex,
   Grid,
   Group,

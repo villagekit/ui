@@ -28,7 +28,7 @@ const shadows = defineTokens.shadows({
   outlineLarge: { value: '0 0 0 4px {colors.outlineColor}' },
 })
 
-const config = defineConfig({
+export const config = defineConfig({
   theme: {
     tokens: {
       colors: colorTokens,
