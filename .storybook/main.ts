@@ -1,14 +1,16 @@
-import type { StorybookConfig } from '@storybook/react-webpack5'
+import type { StorybookConfig } from '@storybook/nextjs-vite'
 
 const config: StorybookConfig = {
   stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: ['@storybook/addon-webpack5-compiler-swc', '@storybook/addon-docs'],
+  addons: ['@storybook/addon-docs', '@storybook/addon-a11y'],
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/nextjs-vite',
     options: {
-      fsCache: true,
-      lazyCompilation: true,
+      nextConfigPath: '.storybook/next.config.js',
     },
+  },
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
   },
 }
 export default config
