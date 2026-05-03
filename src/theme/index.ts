@@ -18,9 +18,12 @@ import { colorSemanticTokens, colorTokens } from './colors'
 const systemFontFallback =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
 
+// Consumers (e.g. Next.js apps) load the actual web fonts via `next/font` and
+// expose them as CSS variables on <html>; we read those variables here, falling
+// back to the bare font family if the consumer hasn't wired them up.
 const fonts = defineTokens.fonts({
-  body: { value: `Bitter, ${systemFontFallback}` },
-  heading: { value: `"Fredoka One", ${systemFontFallback}` },
+  body: { value: `var(--font-body, Bitter), ${systemFontFallback}` },
+  heading: { value: `var(--font-heading, Fredoka), ${systemFontFallback}` },
 })
 
 const shadows = defineTokens.shadows({
@@ -29,6 +32,14 @@ const shadows = defineTokens.shadows({
 })
 
 export const config = defineConfig({
+  globalCss: {
+    // Chakra v3's CSS reset uses `--global-font-body` for the document font.
+    // Point that at our Bitter token so body copy actually picks up the
+    // configured face instead of falling through to system sans-serif.
+    html: {
+      '--global-font-body': '{fonts.body}',
+    },
+  },
   theme: {
     tokens: {
       colors: colorTokens,
