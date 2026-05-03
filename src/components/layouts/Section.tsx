@@ -49,31 +49,29 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(function Section
     childClassName: 'vk-row',
   })
 
+  // The default `yborder-bg` mode is the workhorse for alternating page
+  // sections — keep it quiet (just the tint) so a stack of sections reads as
+  // gentle rhythm rather than a stack of debug bands. `yborder` and
+  // `roundborder` keep visible edges for callouts, just solid instead of
+  // dashed so they don't compete with the dashed header/footer chrome.
   const paletteCss = colorPalette
     ? mode === 'yborder-bg'
       ? {
           backgroundColor: 'colorPalette.50',
-          borderBottomWidth: 2,
-          borderColor: 'colorPalette.200',
-          borderStyle: 'dashed',
-          borderTopWidth: 2,
         }
       : mode === 'yborder'
         ? {
-            borderBottomWidth: 2,
+            borderBottomWidth: 1,
             borderColor: 'colorPalette.200',
-            borderStyle: 'dashed',
-            borderTopWidth: 2,
+            borderStyle: 'solid',
+            borderTopWidth: 1,
           }
         : {
             backgroundColor: 'colorPalette.50',
-            borderBottomWidth: 2,
             borderColor: 'colorPalette.200',
-            borderLeftWidth: 2,
             borderRadius: 'xl',
-            borderRightWidth: 2,
-            borderStyle: 'dashed',
-            borderTopWidth: 2,
+            borderStyle: 'solid',
+            borderWidth: 1,
           }
     : {}
 
