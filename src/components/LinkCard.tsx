@@ -27,13 +27,7 @@ export function LinkCard(props: LinkCardProps) {
   return (
     <LinkBox h="full">
       <HoverCard as={as} h="full" paddingX="6" paddingY="8">
-        <Stack
-          direction="column"
-          alignItems="center"
-          justifyContent="flex-start"
-          gap="4"
-          h="100%"
-        >
+        <Stack direction="column" alignItems="center" justifyContent="flex-start" gap="4" h="100%">
           {icon != null && (
             <Icon w="8" h="8" color="primary.600">
               {icon}
