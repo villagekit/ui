@@ -15,6 +15,8 @@ import { tabsRecipe } from '../components/Tabs'
 import { textRecipe } from '../components/Text'
 import { colorSemanticTokens, colorTokens } from './colors'
 
+export { definePalette } from './colors'
+
 const systemFontFallback =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
 

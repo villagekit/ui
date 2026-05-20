@@ -2,8 +2,15 @@
 export { Provider, type ProviderProps } from './Provider'
 
 // Theme
-export { config, system, theme, type Theme } from './theme'
-export { ChakraProvider, createSystem, defaultConfig, defineConfig } from '@chakra-ui/react'
+export { config, definePalette, system, theme, type Theme } from './theme'
+export {
+  ChakraProvider,
+  createSystem,
+  defaultConfig,
+  defineConfig,
+  defineSemanticTokens,
+  defineTokens,
+} from '@chakra-ui/react'
 
 // Custom components (Village Kit-flavoured)
 export { Accordion, type AccordionRootProps } from './components/Accordion'
