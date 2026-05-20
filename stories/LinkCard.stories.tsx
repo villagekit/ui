@@ -4,7 +4,7 @@ import { FaIceCream } from 'react-icons/fa'
 
 import { LinkCard } from '../src/components/LinkCard'
 
-export default {
+const meta: Meta<typeof LinkCard> = {
   component: LinkCard,
   title: 'ui/LinkCard',
   decorators: [
@@ -14,7 +14,9 @@ export default {
       </Box>
     ),
   ],
-} satisfies Meta<typeof LinkCard>
+}
+
+export default meta
 
 type Story = StoryObj<typeof LinkCard>
 
