@@ -47,11 +47,15 @@ pnpm run dev
 - `lint` — Biome check
 - `types` — `tsc --noEmit`
 - `publint` — verify the published package layout
-- `release` — publish to npm (run by release CI)
 
 ## Releasing
 
-TODO
+```sh
+npm version <patch|minor|major>
+git push --follow-tags
+```
+
+Pushing a `v*` tag triggers the `release` workflow to build and publish to npm.
 
 ## License
 

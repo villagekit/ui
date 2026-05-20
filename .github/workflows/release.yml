@@ -2,25 +2,18 @@ name: release
 
 on:
   push:
-    branches: [main]
+    tags: ['v*']
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   release:
-    name: changesets · publish
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
 
@@ -32,12 +25,4 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - id: changesets
-        uses: changesets/action@v1
-        with:
-          version: pnpm run version-packages
-          publish: pnpm run release
-          commit: "chore: version packages"
-          title: "chore: version packages"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm publish --provenance --access public
