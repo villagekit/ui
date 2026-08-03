@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import NextLink from 'next/link'
 
 import { HStack } from '../src'
 import { LinkButton, type LinkButtonProps } from '../src/components/LinkButton'
@@ -18,6 +19,16 @@ export const Base: Story = {
     children: 'Link goes here',
     href: exampleHref,
     isExternal: true,
+  },
+}
+
+// Guards the 1.2.0 fix: `as` used to be swallowed by Button's `asChild`, silently turning every
+// internal link back into a full document load. Inspect the DOM — the anchor must be NextLink's.
+export const AsNextLink: Story = {
+  args: {
+    as: NextLink,
+    children: 'Client-side navigation',
+    href: '/designs',
   },
 }
 

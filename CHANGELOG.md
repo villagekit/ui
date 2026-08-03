@@ -2,6 +2,23 @@
 
 All notable changes to `@villagekit/ui` are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## 1.2.0
+
+Link components could not route through a framework link, so every internal link they rendered
+caused a full document load. This release fixes that across the board.
+
+### Added
+
+- **`LinkCard` regained `linkComponent`.** The v2 component had it; the Chakra v3 migration dropped it, leaving no way to route the overlay anchor through a framework link. `as` still targets the card element, `linkComponent` targets the overlay anchor — same split as v2, because a card has two elements worth swapping.
+
+### Fixed
+
+- **`LinkButton` and `LinkIconButton` now honour `as`.** Both render `Button asChild > Link`, and Chakra v3's factory drops `as` when it resolves `asChild` — so `as={NextLink}` was silently discarded and every internal link fell back to a plain `<a>`, i.e. a full document load with no prefetch. `as` is now destructured out and applied to the inner `Link`, restoring the v2 call-site idiom (`<LinkButton as={NextLink} href="/designs">`).
+- **`LinkCard` external links get `rel="noopener noreferrer"` again.** Chakra v3's `LinkOverlay` destructures `rel` off its props and never re-applies it, so the attribute had been silently dropped since the v3 migration — external cards shipped `target="_blank"` bare. `LinkCard` now renders the overlay via `asChild` so its own anchor props survive.
+- **`LinkIconButton` sets `rel="noopener noreferrer"`** on external links, matching `LinkButton`.
+- **MDX links to internal routes use `NextLink`.** `MdxLink` rendered every non-`http(s)` href as a plain anchor, so in-prose links between pages reloaded the document. Same-page `#hash` links stay plain.
+- **`LinkButton` / `LinkIconButton` no longer emit `type="button"` on their anchor** — inherited from Chakra's `Button` default, where `type` is a MIME hint and meaningless on `<a>`.
+
 ## 1.1.0
 
 ### Changed

@@ -8,6 +8,7 @@ import {
   type LinkOverlayProps,
   Stack,
   Text,
+  chakra,
 } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
 import { HoverCard, type HoverCardProps } from './HoverCard'
@@ -19,10 +20,12 @@ export interface LinkCardProps {
   description: string
   href: LinkOverlayProps['href']
   isExternal?: boolean
+  /** Render the overlay anchor as another component — e.g. `linkComponent={NextLink}` for client-side routing. */
+  linkComponent?: LinkOverlayProps['as']
 }
 
 export function LinkCard(props: LinkCardProps) {
-  const { as, title, icon, description, href, isExternal } = props
+  const { as, title, icon, description, href, isExternal, linkComponent } = props
 
   return (
     <LinkBox h="full">
@@ -40,11 +43,17 @@ export function LinkCard(props: LinkCardProps) {
 
           <Text textAlign="center">{description}</Text>
 
-          <LinkOverlay
-            href={href}
-            target={isExternal ? '_blank' : undefined}
-            rel={isExternal ? 'noopener noreferrer' : undefined}
-          />
+          {/* asChild, because LinkOverlay itself destructures `rel` away and never applies it. */}
+          <LinkOverlay asChild>
+            {/* biome-ignore lint/a11y/useAnchorContent: pre-existing — the overlay anchor is
+                empty and the link goes unnamed. Tracked in gridbeam.xyz todo/07-code-review/18. */}
+            <chakra.a
+              as={linkComponent}
+              href={href}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
+            />
+          </LinkOverlay>
         </Stack>
       </HoverCard>
     </LinkBox>

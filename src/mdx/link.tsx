@@ -1,5 +1,7 @@
 'use client'
 
+import NextLink from 'next/link'
+
 import { Link, type LinkProps } from '../components/Link'
 
 export function MdxLink(props: LinkProps) {
@@ -11,5 +13,8 @@ export function MdxLink(props: LinkProps) {
     return <Link variant="paragraph" target="_blank" rel="noopener noreferrer" {...props} />
   }
 
-  return <Link variant="paragraph" {...props} />
+  // Same-page anchors stay plain — a `#hash` jump is not a route change.
+  const isRoute = typeof href === 'string' && href.length > 0 && !href.startsWith('#')
+
+  return <Link as={isRoute ? NextLink : undefined} variant="paragraph" {...props} />
 }
