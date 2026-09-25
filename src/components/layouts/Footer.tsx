@@ -124,7 +124,7 @@ function FooterLinkItem(props: FooterLink) {
 
   if (isExternal) {
     return (
-      <Link href={href} variant="tertiary" target="_blank" rel="noopener noreferrer">
+      <Link href={href} variant="tertiary" isExternal>
         {label}
       </Link>
     )
@@ -145,7 +145,7 @@ function FooterSlogan(props: FooterSloganProps) {
 
   const authorName = 'Village Kit'
   const author = shouldLinkToCompanyWebsite ? (
-    <Link href="https://villagekit.com" target="_blank" rel="noopener noreferrer">
+    <Link href="https://villagekit.com" isExternal>
       {authorName}
     </Link>
   ) : (

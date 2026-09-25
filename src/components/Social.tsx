@@ -82,7 +82,7 @@ function SocialLink(props: SocialLinkProps) {
 
   if (isExternal) {
     return (
-      <Link href={href} target="_blank" rel="noopener noreferrer" {...linkProps}>
+      <Link href={href} isExternal {...linkProps}>
         {icon}
       </Link>
     )

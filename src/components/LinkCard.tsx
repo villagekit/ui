@@ -27,7 +27,7 @@ export interface LinkCardProps {
   description: string
   /** Where the card links. */
   href: LinkOverlayProps['href']
-  /** Open the link in a new tab. */
+  /** Open the link in a new tab with `rel="noopener noreferrer"`, what Chakra v2's `LinkOverlay` rendered for the 0.9.0 card's `isExternal` (its `Link` wrote `noopener` alone). */
   isExternal?: boolean
   /** Render the overlay anchor as another component, e.g. `linkComponent={NextLink}`; the default is the framework's link component for an internal href. */
   linkComponent?: LinkOverlayProps['as']

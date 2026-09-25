@@ -6,6 +6,7 @@ import { Link, type LinkProps } from './Link'
 
 export interface LinkButtonProps extends Omit<ButtonProps, 'asChild' | 'as'> {
   href?: LinkProps['href']
+  /** Open the link in a new tab with `rel="noopener"`, what Chakra v2's `Link` rendered for the 0.9.0 button's `isExternal`. */
   isExternal?: boolean
   /** Render the anchor as another component — e.g. `as={NextLink}` for client-side routing. */
   as?: LinkProps['as']
@@ -22,12 +23,7 @@ export const LinkButton = forwardRef<HTMLButtonElement, LinkButtonProps>(
     // `type` is Button's hardcoded default — a MIME hint, and wrong, on an anchor.
     return (
       <Button ref={ref} asChild type={undefined} {...rest}>
-        <Link
-          as={as}
-          href={href}
-          target={isExternal ? '_blank' : undefined}
-          rel={isExternal ? 'noopener noreferrer' : undefined}
-        >
+        <Link as={as} href={href} isExternal={isExternal}>
           {children}
         </Link>
       </Button>
