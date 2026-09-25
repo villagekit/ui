@@ -29,7 +29,13 @@ export const buttonRecipe = defineRecipe({
     // recipe draws a gray outline over it through its `focusVisibleRing` utility.
     focusVisibleRing: 'none',
     '&:not(:disabled)': {
-      _hover: { transform: 'scale(1.08)' },
+      // A pressed button drops back to `scale(1)` while the pointer is still over it, as under
+      // Chakra v2, which emitted the active rule after the hover rule. Chakra v3 wraps `_hover`
+      // in `@media (hover: hover)` and emits every media rule after the plain rules at equal
+      // specificity, so the hover transform would win the press; the active state nested under
+      // the hover state is a more specific rule inside the same media block. The plain active
+      // rule beside it is the 0.9.0 recipe's own line, kept as the legacy author wrote it.
+      _hover: { transform: 'scale(1.08)', _active: { transform: 'scale(1)' } },
       _active: { transform: 'scale(1)' },
       _focus: { boxShadow: 'outline' },
     },
