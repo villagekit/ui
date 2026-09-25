@@ -4,6 +4,10 @@ import { type RefObject, useEffect, useRef } from 'react'
 
 import { sortNodes } from '../util/sortNodes'
 
+// The consumer's bundler substitutes `process.env.NODE_ENV`; declared here so the package needs
+// no Node types.
+declare const process: { env: { NODE_ENV?: string } }
+
 interface UseAssertChildIndexesOptions {
   childClassName: string
 }

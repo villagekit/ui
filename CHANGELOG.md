@@ -2,6 +2,16 @@
 
 All notable changes to `@villagekit/ui` are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## Unreleased
+
+The package imported `next/link`, `next/navigation` and `next/image` unconditionally while declaring `next` an optional peer, so it could not render without Next. The app now supplies its framework through the providers.
+
+### Breaking
+
+- **`NavContextProvider` takes `usePathname` and `linkComponent`.** Both optional: pass `usePathname` from `next/navigation` and `Link` from `next/link`, from a client component (a hook cannot cross a server component boundary as a prop), to get the selected nav item and client-side navigation; absent, no item is selected and links render as plain anchors. The nav, `Footer`, `MdxLink` and `LinkCard` read them from the provider, so one wiring point serves every composite that renders its own anchors; an app that passes nothing loses the selected item and the client-side navigation 1.2.0 gave it. `Link`, `LinkButton` and `LinkIconButton` keep the explicit `as`.
+- **`MediaProvider` takes `imageComponent`.** Pass `next/image` (or any component with its prop shape, `ImageComponentProps`) to have raster images rendered through it; absent, a raster `Image` renders a plain `<img>` on one URL, at the numeric `width` or 1280. A missing cloud name still throws. The deprecated `onLoadingComplete` is no longer forwarded; use `onLoad`.
+- **`next` is no longer a peer dependency.** The package imports nothing from it; `ImageComponent`, `ImageComponentProps`, `ImageLoader`, `ImageLoaderProps` and `StaticImageSource` are declared here with `next/image`'s shapes.
+
 ## 1.2.0
 
 Link components could not route through a framework link, so every internal link they rendered

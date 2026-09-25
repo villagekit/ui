@@ -1,9 +1,8 @@
 'use client'
 
 import { List, type ListRootProps } from '@chakra-ui/react'
-import NextLink from 'next/link'
-import { usePathname } from 'next/navigation'
 
+import { useFramework } from '../../framework'
 import { NavLink, type NavLinkProps } from '../NavLink'
 import type { NavItemDescriptors, NavSubItemDescriptors } from './types'
 
@@ -28,6 +27,7 @@ export function NavList(props: NavListProps) {
     depth = 0,
   } = props
 
+  const { usePathname, linkComponent } = useFramework()
   const pathname = usePathname()
 
   return (
@@ -35,7 +35,7 @@ export function NavList(props: NavListProps) {
       {items.map(({ label, href, children }) => (
         <List.Item key={href}>
           <NavLink
-            as={NextLink}
+            as={linkComponent}
             href={href}
             isSelected={href === pathname}
             size={linkSize}

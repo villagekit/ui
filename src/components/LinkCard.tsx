@@ -11,6 +11,8 @@ import {
   chakra,
 } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
+
+import { useFramework } from '../framework'
 import { HoverCard, type HoverCardProps } from './HoverCard'
 
 export interface LinkCardProps {
@@ -20,12 +22,15 @@ export interface LinkCardProps {
   description: string
   href: LinkOverlayProps['href']
   isExternal?: boolean
-  /** Render the overlay anchor as another component — e.g. `linkComponent={NextLink}` for client-side routing. */
+  /** Render the overlay anchor as another component, e.g. `linkComponent={NextLink}`; the default is the framework's link component for an internal href. */
   linkComponent?: LinkOverlayProps['as']
 }
 
 export function LinkCard(props: LinkCardProps) {
   const { as, title, icon, description, href, isExternal, linkComponent } = props
+
+  const framework = useFramework()
+  const overlayComponent = linkComponent ?? (isExternal ? undefined : framework.linkComponent)
 
   return (
     <LinkBox h="full">
@@ -48,7 +53,7 @@ export function LinkCard(props: LinkCardProps) {
             {/* biome-ignore lint/a11y/useAnchorContent: pre-existing — the overlay anchor is
                 empty and the link goes unnamed. Tracked in gridbeam.xyz todo/07-code-review/18. */}
             <chakra.a
-              as={linkComponent}
+              as={overlayComponent}
               href={href}
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noopener noreferrer' : undefined}

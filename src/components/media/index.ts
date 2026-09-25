@@ -27,6 +27,14 @@ export {
 
 export { Video, type VideoProps } from './Video'
 
+export type {
+  ImageComponent,
+  ImageComponentProps,
+  ImageLoader,
+  ImageLoaderProps,
+  StaticImageSource,
+} from './types'
+
 export {
   useAspectRatio,
   type UseAspectRatioOptions,

@@ -1,9 +1,8 @@
 'use client'
 
 import { HStack, type StackProps } from '@chakra-ui/react'
-import NextLink from 'next/link'
-import { usePathname } from 'next/navigation'
 
+import { useFramework } from '../../framework'
 import { NavLink, type NavLinkProps } from '../NavLink'
 import type { NavItemDescriptors } from './types'
 
@@ -17,6 +16,7 @@ export interface NavBarProps {
 export function NavBar(props: NavBarProps) {
   const { items, linkSize = 'md', onHideMobileMenu, container } = props
 
+  const { usePathname, linkComponent } = useFramework()
   const pathname = usePathname()
 
   return (
@@ -24,7 +24,7 @@ export function NavBar(props: NavBarProps) {
       {items.map(({ label, href }) => (
         <NavLink
           key={href}
-          as={NextLink}
+          as={linkComponent}
           href={href}
           isSelected={href === pathname}
           size={linkSize}

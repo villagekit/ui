@@ -21,10 +21,13 @@ const items: NavItemDescriptors = [
 
 const topItems = items.filter((item) => item.location === 'top')
 
+// The app's pathname hook, standing in for the router's: the item it names is the selected one.
+const usePathname = () => '/designs'
+
 export const Basic: Story = {
   render() {
     return (
-      <NavContextProvider items={items}>
+      <NavContextProvider items={items} usePathname={usePathname}>
         <NavBar items={topItems} />
       </NavContextProvider>
     )
@@ -34,8 +37,19 @@ export const Basic: Story = {
 export const AsList: Story = {
   render() {
     return (
-      <NavContextProvider items={items}>
+      <NavContextProvider items={items} usePathname={usePathname}>
         <NavList items={items} gap="2" />
+      </NavContextProvider>
+    )
+  },
+}
+
+// No framework at all: plain anchors, nothing selected.
+export const WithoutFramework: Story = {
+  render() {
+    return (
+      <NavContextProvider items={items}>
+        <NavBar items={topItems} />
       </NavContextProvider>
     )
   },

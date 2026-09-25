@@ -2,6 +2,8 @@
 
 import { type ReactNode, createContext, useContext } from 'react'
 
+import type { ImageComponent } from './types'
+
 export interface MediaContextValue {
   /**
    * Cloudinary cloud name (the path segment after `res.cloudinary.com/`).
@@ -9,18 +11,31 @@ export interface MediaContextValue {
    * `Image` or `Video` without it throws.
    */
   cloudinaryName: string | null
+  /**
+   * The app's image component, `next/image` or another with its prop shape.
+   * `null` means a raster `Image` renders a plain `<img>` on one URL.
+   */
+  imageComponent: ImageComponent | null
 }
 
-const MediaContext = createContext<MediaContextValue>({ cloudinaryName: null })
+const MediaContext = createContext<MediaContextValue>({
+  cloudinaryName: null,
+  imageComponent: null,
+})
 
 export interface MediaProviderProps {
   cloudinaryName?: string
+  imageComponent?: ImageComponent
   children: ReactNode
 }
 
 export function MediaProvider(props: MediaProviderProps) {
-  const { cloudinaryName = null, children } = props
-  return <MediaContext.Provider value={{ cloudinaryName }}>{children}</MediaContext.Provider>
+  const { cloudinaryName = null, imageComponent = null, children } = props
+  return (
+    <MediaContext.Provider value={{ cloudinaryName, imageComponent }}>
+      {children}
+    </MediaContext.Provider>
+  )
 }
 
 export function useMediaContext(): MediaContextValue {

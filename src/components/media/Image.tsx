@@ -7,37 +7,40 @@ import {
   type SystemStyleObject,
   chakra,
 } from '@chakra-ui/react'
-import NextImage, { type ImageLoader, type ImageProps as NextImageProps } from 'next/image'
 import type React from 'react'
 import { useMemo } from 'react'
 
 import { assertCloudinaryName, useMediaContext } from './context'
 import { type UseSizesOptions, useAspectRatio, useImageSizes } from './hooks'
-import type { AspectRatio, Orientation } from './types'
+import type {
+  AspectRatio,
+  ImageComponent,
+  ImageComponentProps,
+  ImageLoader,
+  Orientation,
+} from './types'
 import { getCloudinaryImageUrl } from './url'
 
-const ChakraNextImage = chakra(
-  NextImage,
-  {},
-  {
-    forwardProps: [
-      'src',
-      'alt',
-      'fill',
-      'quality',
-      'priority',
-      'placeholder',
-      'blurDataURL',
-      'loader',
-      'sizes',
-      'onLoadingComplete',
-      'onLoad',
-      'onError',
-      'width',
-      'height',
-    ],
-  },
-)
+// The props the app's image component owns; every other prop is a Chakra style prop.
+const imageComponentProps = [
+  'src',
+  'alt',
+  'fill',
+  'quality',
+  'priority',
+  'placeholder',
+  'blurDataURL',
+  'loader',
+  'sizes',
+  'onLoad',
+  'onError',
+  'overrideSrc',
+  'width',
+  'height',
+]
+
+// The width of the one URL a plain `<img>` gets when the app supplies no image component.
+const fallbackWidth = 1280
 
 interface BaseImageProps {
   aspectRatio?: AspectRatio
@@ -69,11 +72,11 @@ type BaseChakraImageProps = Omit<
   | 'translate'
   | 'transition'
 >
-type BaseNextImageProps = Omit<NextImageProps, 'sizes'>
+type BaseImageComponentProps = Omit<ImageComponentProps, 'sizes'>
 interface BaseRasterImageProps
   extends BaseImageProps,
     BaseChakraImageProps,
-    BaseNextImageProps,
+    BaseImageComponentProps,
     UseSizesOptions {}
 
 export type LocalImageProps<ExtraProps extends object = {}> = BaseRasterImageProps &
@@ -158,7 +161,7 @@ export function RasterImage(props: RasterImageProps) {
 
   const aspectRatio = useAspectRatio({ aspectRatioName, orientation })
   const sizes = useImageSizes({ sizes: breakpointSizes })
-  const { cloudinaryName } = useMediaContext()
+  const { cloudinaryName, imageComponent } = useMediaContext()
 
   const loader = useMemo<ImageLoader | undefined>(() => {
     if (type !== 'cloudinary') return undefined
@@ -172,21 +175,67 @@ export function RasterImage(props: RasterImageProps) {
       })
   }, [type, cloudinaryName])
 
+  const ChakraImage = useMemo(
+    () => (imageComponent == null ? null : chakraImage(imageComponent)),
+    [imageComponent],
+  )
+
+  if (ChakraImage == null) {
+    // No framework: one URL on a plain `<img>`, the app's image-only props dropped.
+    const {
+      priority,
+      placeholder: _placeholder,
+      blurDataURL: _blurDataURL,
+      unoptimized: _unoptimized,
+      overrideSrc: _overrideSrc,
+      loader: _loader,
+      loading,
+      width = typeof src === 'string' ? undefined : src.width,
+      height = typeof src === 'string' ? undefined : src.height,
+      ...imgProps
+    } = rest
+    const srcString = typeof src === 'string' ? src : src.src
+    const plainSrc =
+      loader == null
+        ? srcString
+        : loader({
+            src: srcString,
+            width: numeric(width) ?? fallbackWidth,
+            quality: numeric(quality),
+          })
+    return (
+      <chakra.img
+        src={plainSrc}
+        alt={alt}
+        sizes={sizes}
+        loading={priority ? 'eager' : loading}
+        htmlWidth={fill ? undefined : width}
+        htmlHeight={fill ? undefined : height}
+        css={[
+          { aspectRatio },
+          fill ? { position: 'absolute', inset: 0, width: '100%', height: '100%' } : {},
+          css as SystemStyleObject | undefined,
+        ]}
+        {...imgProps}
+      />
+    )
+  }
+
   return (
-    <ChakraNextImage
+    <ChakraImage
       loader={loader}
       src={src}
       alt={alt}
       quality={quality}
-      // @ts-ignore — `fill` is a valid NextImage prop, forwarded via `forwardProps`
+      // @ts-ignore: `fill` is a valid image component prop, forwarded via `forwardProps`
       fill={fill}
       sizes={sizes}
       css={[
         {
           aspectRatio,
-          // Chakra's chakra(NextImage) wrapping forwards `width`/`height` to
-          // NextImage, but the resolved chakra style system also turns the
-          // numeric width/height into CSS dimensions. Undo that so NextImage's
+          // Chakra's chakra(ImageComponent) wrapping forwards `width`/`height` to
+          // the image component, but the resolved chakra style system also turns the
+          // numeric width/height into CSS dimensions. Undo that so the component's
           // intrinsic-size handling is the authoritative source.
           height: undefined,
           width: undefined,
@@ -196,6 +245,15 @@ export function RasterImage(props: RasterImageProps) {
       {...rest}
     />
   )
+}
+
+function chakraImage(imageComponent: ImageComponent) {
+  return chakra(imageComponent, {}, { forwardProps: imageComponentProps })
+}
+
+function numeric(value: number | `${number}` | undefined): number | undefined {
+  if (value == null) return undefined
+  return typeof value === 'number' ? value : Number(value)
 }
 
 type Optional<T extends object, K extends keyof T = keyof T> = Omit<T, K> & Partial<Pick<T, K>>

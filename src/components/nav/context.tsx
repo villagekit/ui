@@ -2,6 +2,7 @@
 
 import { type ReactNode, createContext, useContext, useMemo } from 'react'
 
+import { type FrameworkProps, FrameworkProvider } from '../../framework'
 import type { NavItemDescriptors } from './types'
 
 interface NavContextValue {
@@ -13,13 +14,18 @@ interface NavContextValue {
 
 const NavContext = createContext<NavContextValue | null>(null)
 
-export interface NavContextProviderProps {
+export interface NavContextProviderProps extends FrameworkProps {
   items: NavItemDescriptors
   children: ReactNode
 }
 
+/**
+ * The app's one wiring point for the nav: its items, and the framework's pathname hook and link
+ * component (`FrameworkProps`), which the nav, `Footer`, `MdxLink` and `LinkCard` read. Render it
+ * from a client component, since a hook cannot cross a server component boundary as a prop.
+ */
 export function NavContextProvider(props: NavContextProviderProps) {
-  const { items, children } = props
+  const { items, usePathname, linkComponent, children } = props
 
   const value = useMemo<NavContextValue>(() => {
     return {
@@ -30,7 +36,11 @@ export function NavContextProvider(props: NavContextProviderProps) {
     }
   }, [items])
 
-  return <NavContext.Provider value={value}>{children}</NavContext.Provider>
+  return (
+    <FrameworkProvider usePathname={usePathname} linkComponent={linkComponent}>
+      <NavContext.Provider value={value}>{children}</NavContext.Provider>
+    </FrameworkProvider>
+  )
 }
 
 export function useNavContext(): NavContextValue {

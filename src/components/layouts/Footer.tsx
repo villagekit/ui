@@ -1,9 +1,9 @@
 'use client'
 
 import { Box, Stack, VStack, useBreakpointValue } from '@chakra-ui/react'
-import NextLink from 'next/link'
 import type { ReactNode } from 'react'
 
+import { useFramework } from '../../framework'
 import { Heading } from '../Heading'
 import { Link } from '../Link'
 
@@ -81,6 +81,8 @@ function FooterColumn(props: FooterColumnProps) {
 function FooterLinkItem(props: FooterLink) {
   const { href, label, isExternal = false } = props
 
+  const { linkComponent } = useFramework()
+
   if (isExternal) {
     return (
       <Link href={href} variant="tertiary" target="_blank" rel="noopener noreferrer">
@@ -89,7 +91,7 @@ function FooterLinkItem(props: FooterLink) {
     )
   }
   return (
-    <Link as={NextLink} href={href} variant="tertiary">
+    <Link as={linkComponent} href={href} variant="tertiary">
       {label}
     </Link>
   )
