@@ -13,27 +13,27 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(function Hea
   return <BaseHeading ref={ref} {...props} />
 })
 
-// Chakra v3's default heading sizes are uniformly smaller than v2 — `size="4xl"`
-// renders fontSize 4xl (36 px) instead of v2's `['6xl', null, '7xl']` (60–72 px).
-// Restoring the v2 responsive scale keeps the Village Kit aesthetic across sites,
-// and `semibold` matches the only Fredoka weight (`600`) the Village Kit sites
-// load via `next/font`. `textStyle: 'none'` neutralizes Chakra's default
-// textStyle on the variants we override, so `letterSpacing` from textStyle.4xl
-// (etc.) can't bleed through the merged recipe.
+/**
+ * Chakra v2's heading scale (`@chakra-ui/theme` `components/heading`: `md` is `xl` on a 1.2 line,
+ * `lg` to `4xl` step up at the `md` breakpoint), which Chakra v3's textStyle-based sizes shrank.
+ * `textStyle: 'none'` keeps the default textStyle's letterSpacing out of the merged recipe. The
+ * weight is `normal`, as the 0.9.0 theme set it: a site that loads one face of the heading font
+ * renders that face whatever weight is asked for.
+ */
 export const headingRecipe = defineRecipe({
   className: 'chakra-heading',
   base: {
     fontFamily: 'heading',
-    fontWeight: 'semibold',
+    fontWeight: 'normal',
   },
   variants: {
     size: {
       xs: { textStyle: 'none', fontSize: 'sm', lineHeight: '1.2' },
       sm: { textStyle: 'none', fontSize: 'md', lineHeight: '1.2' },
-      md: { textStyle: 'none', fontSize: 'lg', lineHeight: '1.2' },
+      md: { textStyle: 'none', fontSize: 'xl', lineHeight: '1.2' },
       lg: {
         textStyle: 'none',
-        fontSize: { base: 'xl', md: '2xl' },
+        fontSize: { base: '2xl', md: '3xl' },
         lineHeight: { base: '1.33', md: '1.2' },
       },
       xl: {

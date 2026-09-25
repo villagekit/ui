@@ -1,5 +1,6 @@
 // Provider — wraps consumers with the Village Kit theme system
 export { Provider, type ProviderProps } from './Provider'
+export { toaster } from './Toaster'
 
 // Theme
 export { config, definePalette, system, theme, type Theme } from './theme'

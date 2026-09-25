@@ -6,8 +6,11 @@ import { buttonRecipe } from '../components/Button'
 import { checkboxRecipe } from '../components/Checkbox.recipe'
 import { fieldRecipe } from '../components/FormLabel.recipe'
 import { headingRecipe } from '../components/Heading'
+import { inputRecipe } from '../components/Input'
 import { linkRecipe } from '../components/Link'
 import { navLinkRecipe } from '../components/NavLink'
+import { numberInputRecipe } from '../components/NumberInput'
+import { nativeSelectRecipe } from '../components/Select'
 import { sliderRecipe } from '../components/Slider.recipe'
 import { switchRecipe } from '../components/Switch.recipe'
 import { tableRecipe } from '../components/Table.recipe'
@@ -20,9 +23,9 @@ export { definePalette } from './colors'
 const systemFontFallback =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
 
-// Consumers (e.g. Next.js apps) load the actual web fonts via `next/font` and
-// expose them as CSS variables on <html>; we read those variables here, falling
-// back to the bare font family if the consumer hasn't wired them up.
+// The app loads the web fonts itself and either writes their families into these tokens when it
+// creates its own system or sets `--font-body` and `--font-heading` on `html`; with neither, the
+// bare family names apply.
 const fonts = defineTokens.fonts({
   body: { value: `var(--font-body, Bitter), ${systemFontFallback}` },
   heading: { value: `var(--font-heading, Fredoka), ${systemFontFallback}` },
@@ -55,6 +58,7 @@ export const config = defineConfig({
       badge: badgeRecipe,
       button: buttonRecipe,
       heading: headingRecipe,
+      input: inputRecipe,
       link: linkRecipe,
       navLink: navLinkRecipe,
       text: textRecipe,
@@ -63,6 +67,8 @@ export const config = defineConfig({
       accordion: accordionRecipe,
       checkbox: checkboxRecipe,
       field: fieldRecipe,
+      nativeSelect: nativeSelectRecipe,
+      numberInput: numberInputRecipe,
       slider: sliderRecipe,
       switch: switchRecipe,
       table: tableRecipe,

@@ -25,6 +25,9 @@ export const buttonRecipe = defineRecipe({
     fontWeight: 'normal',
     transitionDuration: 'fast',
     WebkitTapHighlightColor: 'transparent',
+    // The focused button shows the theme's `outline` shadow alone, as under Chakra v2; v3's own
+    // recipe draws a gray outline over it through its `focusVisibleRing` utility.
+    focusVisibleRing: 'none',
     '&:not(:disabled)': {
       _hover: { transform: 'scale(1.08)' },
       _active: { transform: 'scale(1)' },

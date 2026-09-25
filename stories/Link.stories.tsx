@@ -21,6 +21,14 @@ export const Base: Story = {
   },
 }
 
+export const External: Story = {
+  args: {
+    children: 'Link that opens in a new tab',
+    href: exampleHref,
+    isExternal: true,
+  },
+}
+
 export const Variants: Story = {
   render() {
     return (
