@@ -11,8 +11,7 @@ export interface CardsLayoutProps {
 }
 
 /**
- * A page layout for browsing a grid of cards with a centered page title.
- * SEO is intentionally NOT handled here — consumers use Next.js metadata.
+ * A page layout for browsing a wrap of cards under a centered page title, in a container the width of the `md` breakpoint (768px). The page title metadata is the app's, not this layout's.
  */
 export function CardsLayout(props: CardsLayoutProps) {
   const { title, children } = props
@@ -21,7 +20,7 @@ export function CardsLayout(props: CardsLayoutProps) {
     <>
       <Title>{title}</Title>
 
-      <Container maxW="2xl">
+      <Container maxW="breakpoint-md">
         <Wrap gap="8" justify="center" overflow="visible">
           {children}
         </Wrap>

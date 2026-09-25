@@ -11,6 +11,7 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 - **`NavContextProvider` takes `usePathname` and `linkComponent`.** Both optional: pass `usePathname` from `next/navigation` and `Link` from `next/link`, from a client component (a hook cannot cross a server component boundary as a prop), to get the selected nav item and client-side navigation; absent, no item is selected and links render as plain anchors. The nav, `Footer`, `Social`, `MdxLink` and `LinkCard` read them from the provider, so one wiring point serves every composite that renders its own anchors; an app that passes nothing loses the selected item and the client-side navigation 1.2.0 gave it. `Link`, `LinkButton` and `LinkIconButton` keep the explicit `as`.
 - **`MediaProvider` takes `imageComponent`.** Pass `next/image` (or any component with its prop shape, `ImageComponentProps`) to have raster images rendered through it; absent, a raster `Image` renders a plain `<img>` on one URL, at the numeric `width` or 1280. A missing cloud name still throws. The deprecated `onLoadingComplete` is no longer forwarded; use `onLoad`.
 - **`next` is no longer a peer dependency.** The package imports nothing from it; `ImageComponent`, `ImageComponentProps`, `ImageLoader`, `ImageLoaderProps` and `StaticImageSource` are declared here with `next/image`'s shapes.
+- **`LinkCard`'s `icon` is a component type again, and required.** Pass the icon component (`icon={FaCut}`), as the 0.9.0 card took it; 1.2.0 took an optional rendered element (`icon={<FaCut />}`). In an app with server components, pass it from a client module (a function cannot cross a server component boundary as a prop; a `'use client'` module that re-exports the icons is enough). The icon renders in the card's text color; 1.2.0 colored it `primary.600`.
 - **`Footer` is the brand footer.** It takes `socialLinks` (an array of `SocialLinkDescriptor`, or `null` for no row) and renders the social row, its children and the `Created with ♥ by Village Kit` credit below the link columns, the way the legacy `ui-brand` footer wrapped the `ui-page` one; `shouldLinkToCompanyWebsite` (default `true`) links the credit to villagekit.com. `FooterSections` is a tuple of four sections.
 
 ### Added
@@ -19,6 +20,8 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 
 ### Fixed
 
+- **`LinkCard` is a fixed `3xs` by `64` box again**, padded `4` by `8`, its icon, heading, description and overlay spread down it with `space-around`, the icon exposed to assistive technology, the heading an `h2` and the wrapper labeled with the title, as the 0.9.0 card was; 1.2.0 let the card fill its cell, packed its content to the top with `paddingX` `6`, hid the icon, rendered an `h3` and dropped the label.
+- **`CardsLayout`'s container is `breakpoint-md`** (768px) again, the legacy `container.md`; 1.2.0 had `2xl`.
 - **Footer columns sit side by side with no gap from `md` and center their headings and links**, as the legacy footer did; `1.2.0` spread them with a gap of `16` and left-aligned them. The social row sits in a prose-width container, Chakra v2's default, not Chakra v3's `8xl`.
 
 ### Changed

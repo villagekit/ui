@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 import NextLink from 'next/link'
 import { FaIceCream } from 'react-icons/fa'
@@ -8,13 +7,6 @@ import { LinkCard } from '../src/components/LinkCard'
 const meta: Meta<typeof LinkCard> = {
   component: LinkCard,
   title: 'ui/LinkCard',
-  decorators: [
-    (Story) => (
-      <Box width="3xs">
-        <Story />
-      </Box>
-    ),
-  ],
 }
 
 export default meta
@@ -23,33 +15,24 @@ type Story = StoryObj<typeof LinkCard>
 
 const exampleHref = 'https://gridbeam.xyz/'
 
-export const WithIcon: Story = {
+export const External: Story = {
   args: {
-    description: 'Description text — a sentence or two.',
+    description: 'Description text, a sentence or two.',
     href: exampleHref,
-    icon: <FaIceCream />,
+    icon: FaIceCream,
     isExternal: true,
     title: 'Title',
   },
 }
 
 // Guards the 1.2.0 fix: `linkComponent` routes the overlay anchor through a framework link.
-// Inspect the DOM — the `.chakra-linkbox__overlay` anchor must be NextLink's.
+// Inspect the DOM: the `.chakra-linkbox__overlay` anchor must be NextLink's.
 export const WithLinkComponent: Story = {
   args: {
     description: 'Internal link, navigated client-side.',
     href: '/designs',
-    icon: <FaIceCream />,
+    icon: FaIceCream,
     linkComponent: NextLink,
-    title: 'Title',
-  },
-}
-
-export const WithoutIcon: Story = {
-  args: {
-    description: 'Description text — a sentence or two.',
-    href: exampleHref,
-    isExternal: true,
     title: 'Title',
   },
 }
