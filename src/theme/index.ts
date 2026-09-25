@@ -1,4 +1,10 @@
-import { createSystem, defaultConfig, defineConfig, defineTokens } from '@chakra-ui/react'
+import {
+  createSystem,
+  defaultConfig,
+  defineConfig,
+  defineSemanticTokens,
+  defineTokens,
+} from '@chakra-ui/react'
 
 import { accordionRecipe } from '../components/Accordion.recipe'
 import { badgeRecipe } from '../components/Badge.recipe'
@@ -31,9 +37,24 @@ const fonts = defineTokens.fonts({
   heading: { value: `var(--font-heading, Fredoka), ${systemFontFallback}` },
 })
 
+// Chakra v2's shadow scale (`@chakra-ui/theme@3.3.1`, `src/foundations/shadows.ts`), the
+// values the 0.9.0 theme rendered for `boxShadow="sm"` and the rest. Chakra v3 defines the
+// same names, `base` aside, as semantic tokens with two gray layers, so those are replaced at
+// that level; `base` is a token, since a semantic token named `base` reads as a condition.
 const shadows = defineTokens.shadows({
+  base: { value: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' },
   outline: { value: '0 0 0 2px {colors.outlineColor}' },
   outlineLarge: { value: '0 0 0 4px {colors.outlineColor}' },
+})
+
+const shadowSemanticTokens = defineSemanticTokens.shadows({
+  xs: { value: '0 0 0 1px rgba(0, 0, 0, 0.05)' },
+  sm: { value: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' },
+  md: { value: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' },
+  lg: { value: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' },
+  xl: { value: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' },
+  '2xl': { value: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' },
+  inner: { value: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)' },
 })
 
 export const config = defineConfig({
@@ -53,6 +74,7 @@ export const config = defineConfig({
     },
     semanticTokens: {
       colors: colorSemanticTokens,
+      shadows: shadowSemanticTokens,
     },
     recipes: {
       badge: badgeRecipe,
