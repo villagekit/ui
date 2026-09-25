@@ -80,7 +80,8 @@ export function NavHeader(props: NavHeaderProps) {
                 aria-controls={mobileMenuId}
                 onClick={onToggleMobileMenu}
                 variant="toolbar"
-                color="gray.900"
+                // The variant's rest color; a `color` style prop would beat its hover and press colors.
+                css={{ '--toolbar-color': 'colors.gray.900' }}
               >
                 <Icon boxSize="6">{isMobileMenuOpen ? <FaTimes /> : <FaBars />}</Icon>
               </IconButton>

@@ -81,7 +81,11 @@ export const buttonRecipe = defineRecipe({
         _focus: { color: 'primary.500' },
       },
       toolbar: {
-        color: 'gray.700',
+        // The rest color is a variable a consumer sets in place of a `color` style prop (the nav
+        // toggle's `gray.900`): Chakra v3 emits a style prop outside the `recipes` cascade layer,
+        // where it beats the variant's hover, press and focus colors whatever their specificity,
+        // while a variable set there leaves those states to win inside the layer, as they did in v2.
+        color: 'var(--toolbar-color, {colors.gray.700})',
         '&:not(:disabled)': {
           _hover: {
             backgroundColor: 'primary.400/10',
