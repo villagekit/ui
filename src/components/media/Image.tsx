@@ -10,7 +10,7 @@ import {
 import type React from 'react'
 import { useMemo } from 'react'
 
-import { assertCloudinaryName, useMediaContext } from './context'
+import { useMediaContext } from './context'
 import { type UseSizesOptions, useAspectRatio, useImageSizes } from './hooks'
 import type {
   AspectRatio,
@@ -165,10 +165,9 @@ export function RasterImage(props: RasterImageProps) {
 
   const loader = useMemo<ImageLoader | undefined>(() => {
     if (type !== 'cloudinary') return undefined
-    const name = assertCloudinaryName(cloudinaryName)
     return ({ src: loaderSrc, width, quality: loaderQuality }) =>
       getCloudinaryImageUrl({
-        cloudinaryName: name,
+        cloudinaryName,
         src: loaderSrc,
         width,
         quality: loaderQuality,

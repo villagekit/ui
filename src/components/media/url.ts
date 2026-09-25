@@ -2,8 +2,9 @@
 //
 // Pure functions: take `cloudinaryName` as input, return a URL. The
 // `cloudinaryName` is the cloud account name on Cloudinary (the path
-// segment after `res.cloudinary.com/`). Consumers should set it via
-// `<MediaProvider cloudinaryName="..." />`.
+// segment after `res.cloudinary.com/`); the components read it from the
+// media context, `villagekit` unless a `<MediaProvider cloudinaryName="..." />`
+// overrides it.
 
 export interface GetCloudinaryImageUrlOptions {
   cloudinaryName: string

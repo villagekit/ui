@@ -4,13 +4,12 @@ import { type ReactNode, createContext, useContext } from 'react'
 
 import type { ImageComponent } from './types'
 
+/** The cloud the legacy `ui-media` package hard-coded; the context's value unless a `MediaProvider` overrides it. */
+export const defaultCloudinaryName = 'villagekit'
+
 export interface MediaContextValue {
-  /**
-   * Cloudinary cloud name (the path segment after `res.cloudinary.com/`).
-   * `null` means cloudinary is not configured; rendering a `cloudinary`
-   * `Image` or `Video` without it throws.
-   */
-  cloudinaryName: string | null
+  /** Cloudinary cloud name (the path segment after `res.cloudinary.com/`), `villagekit` by default. */
+  cloudinaryName: string
   /**
    * The app's image component, `next/image` or another with its prop shape.
    * `null` means a raster `Image` renders a plain `<img>` on one URL.
@@ -19,7 +18,7 @@ export interface MediaContextValue {
 }
 
 const MediaContext = createContext<MediaContextValue>({
-  cloudinaryName: null,
+  cloudinaryName: defaultCloudinaryName,
   imageComponent: null,
 })
 
@@ -29,8 +28,9 @@ export interface MediaProviderProps {
   children: ReactNode
 }
 
+/** Overrides the cloud name for another Cloudinary account, and supplies the app's image component. */
 export function MediaProvider(props: MediaProviderProps) {
-  const { cloudinaryName = null, imageComponent = null, children } = props
+  const { cloudinaryName = defaultCloudinaryName, imageComponent = null, children } = props
   return (
     <MediaContext.Provider value={{ cloudinaryName, imageComponent }}>
       {children}
@@ -44,14 +44,5 @@ export function useMediaContext(): MediaContextValue {
 
 export function useCloudinaryName(): string {
   const { cloudinaryName } = useMediaContext()
-  return assertCloudinaryName(cloudinaryName)
-}
-
-export function assertCloudinaryName(cloudinaryName: string | null): string {
-  if (cloudinaryName == null) {
-    throw new Error(
-      'Cloudinary cloud name is not configured. Wrap your app in `<MediaProvider cloudinaryName="...">` before rendering a cloudinary image or video.',
-    )
-  }
   return cloudinaryName
 }

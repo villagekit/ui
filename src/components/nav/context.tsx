@@ -21,7 +21,7 @@ export interface NavContextProviderProps extends FrameworkProps {
 
 /**
  * The app's one wiring point for the nav: its items, and the framework's pathname hook and link
- * component (`FrameworkProps`), which the nav, `Footer`, `MdxLink` and `LinkCard` read. Render it
+ * component (`FrameworkProps`), which the nav, `Footer` and `LinkCard` read. Render it
  * from a client component, since a hook cannot cross a server component boundary as a prop.
  */
 export function NavContextProvider(props: NavContextProviderProps) {

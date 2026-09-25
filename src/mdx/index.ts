@@ -28,3 +28,12 @@ export { MdxH1, MdxH2, MdxH3, MdxH4, MdxH5 } from './heading'
 export { MdxLink } from './link'
 export { MdxListItem, MdxOrderedList, MdxUnorderedList } from './list'
 export { MdxParagraph } from './paragraph'
+
+// Media for a story to import beside the prose, as the legacy ui-mdx package exported them
+export { Image, type ImageProps } from './Image'
+export {
+  MediaContainer,
+  type MediaContainerProps,
+  useMediaMaxWidthBreakpoints,
+} from './MediaContainer'
+export { Video, type VideoProps } from './Video'

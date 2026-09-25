@@ -8,8 +8,9 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 
 ### Breaking
 
-- **`NavContextProvider` takes `usePathname` and `linkComponent`.** Both optional: pass `usePathname` from `next/navigation` and `Link` from `next/link`, from a client component (a hook cannot cross a server component boundary as a prop), to get the selected nav item and client-side navigation; absent, no item is selected and links render as plain anchors. The nav, `Footer`, `Social`, `MdxLink` and `LinkCard` read them from the provider, so one wiring point serves every composite that renders its own anchors; an app that passes nothing loses the selected item and the client-side navigation 1.2.0 gave it. `Link`, `LinkButton` and `LinkIconButton` keep the explicit `as`.
-- **`MediaProvider` takes `imageComponent`.** Pass `next/image` (or any component with its prop shape, `ImageComponentProps`) to have raster images rendered through it; absent, a raster `Image` renders a plain `<img>` on one URL, at the numeric `width` or 1280. A missing cloud name still throws. The deprecated `onLoadingComplete` is no longer forwarded; use `onLoad`.
+- **`NavContextProvider` takes `usePathname` and `linkComponent`.** Both optional: pass `usePathname` from `next/navigation` and `Link` from `next/link`, from a client component (a hook cannot cross a server component boundary as a prop), to get the selected nav item and client-side navigation; absent, no item is selected and links render as plain anchors. The nav, `Footer`, `Social` and `LinkCard` read them from the provider, so one wiring point serves every composite that renders its own anchors; an app that passes nothing loses the selected item and the client-side navigation 1.2.0 gave it. `Link`, `LinkButton` and `LinkIconButton` keep the explicit `as`.
+- **`MdxLink` opens every link that is not a `#hash` in a new tab** with `rel="noopener"`, as the 0.9.0 `ui-mdx` link did: it renders `Link` with `isExternal` and no longer reads the framework link component. 1.2.0 opened only an `http(s)` href in a new tab, with `rel="noopener noreferrer"`, and routed an internal href through the framework link in the same tab.
+- **`MediaProvider` takes `imageComponent`.** Pass `next/image` (or any component with its prop shape, `ImageComponentProps`) to have raster images rendered through it; absent, a raster `Image` renders a plain `<img>` on one URL, at the numeric `width` or 1280. The deprecated `onLoadingComplete` is no longer forwarded; use `onLoad`.
 - **`next` is no longer a peer dependency.** The package imports nothing from it; `ImageComponent`, `ImageComponentProps`, `ImageLoader`, `ImageLoaderProps` and `StaticImageSource` are declared here with `next/image`'s shapes.
 - **`LinkCard`'s `icon` is a component type again, and required.** Pass the icon component (`icon={FaCut}`), as the 0.9.0 card took it; 1.2.0 took an optional rendered element (`icon={<FaCut />}`). In an app with server components, pass it from a client module (a function cannot cross a server component boundary as a prop; a `'use client'` module that re-exports the icons is enough). The icon renders in the card's text color; 1.2.0 colored it `primary.600`.
 - **`Provider` mounts a `Toaster`.** Toasts render again, at the bottom as Chakra v2's did: call `toaster.create({ title, description, type })` from any component. An app that mounted its own `Toaster` beside the provider now has two.
@@ -18,12 +19,14 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 
 ### Added
 
+- **`@villagekit/ui/mdx` exports `Image`, `Video` and `MediaContainer`** for a story to import beside its prose, as the legacy `ui-mdx` package did: `MediaContainer` centers its child and bounds it to `md`, `lg` from the `md` breakpoint (`useMediaMaxWidthBreakpoints`), and `Image` and `Video` render the media components inside it with those bounds as their default `sizes`.
 - **`Provider` takes `system`.** An app that extends the package's `config` (`createSystem(defaultConfig, config, ...)`) passes its system here and keeps the provider's toast regions, the way the legacy site passed its extended theme to the ui's `ChakraProvider`; absent, the package's own system.
 - **`Link` takes `isExternal` again**, rendering `target="_blank" rel="noopener"`, what Chakra v2's `Link` rendered for the 0.9.0 component.
 - **`Social`**, the row of social icon links, with `SocialProps` and `SocialLinkDescriptor` (`href`, `isExternal`, `label`, `Icon`). Each icon carries its link's name; route links go through the framework's link component.
 
 ### Fixed
 
+- **The MDX blockquote is a `BlockSection` again**, the 0.9.0 `ui-mdx` blockquote: a stack with a quote icon, `accentB.50` on a dashed `accentB.300` border, radius `xl`, shadow `sm`, padded `4` by `2`, its text `secondary`, exposed to assistive technology as its paragraphs; 1.2.0 rendered a `blockquote` element with no shadow, padded `5` by `3`.
 - **Headings weigh `normal`** again, as the 0.9.0 theme set them; 1.1.0 made them `semibold`. A site that loads one face of the heading font renders that face either way.
 - **Heading sizes `md` and `lg` are Chakra v2's again**: `md` is `xl` on a 1.2 line (20px), `lg` steps from `2xl` to `3xl` at the `md` breakpoint; 1.1.0 had them one step smaller (`lg`, and `xl` to `2xl`).
 - **Inputs, native selects and number inputs take Chakra v2's sizes**: `lg` is 48px tall at font size `lg`, `md` 40px, `sm` 32px, `xs` 24px, rounded `md` (`xs` below `md`); Chakra v3's sizes were 44px, 40px, 36px and 32px at smaller type, rounded `l2`. The focused field borders in the theme's `outlineColor` with a one-pixel shadow, as the 0.9.0 wrappers' `focusBorderColor` did.
@@ -37,6 +40,7 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 
 ### Changed
 
+- **The Cloudinary cloud name defaults to `villagekit`** (`defaultCloudinaryName`), the cloud the legacy `ui-media` package hard-coded in its URLs, so an app on that cloud renders a `cloudinary` `Image` or `Video` without a `MediaProvider`; the provider's `cloudinaryName` overrides it for another cloud. 1.1.0 threw when no provider set it.
 - **Footer columns are narrower between `md` and `lg`**: a minimum of `44` (11rem) in place of `3xs`, so four columns fit a 768px viewport.
 
 ## 1.2.0

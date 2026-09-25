@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Box } from '../src'
+import { Box, MediaProvider } from '../src'
 import {
+  Image,
   MdxBlockquote,
   MdxH1,
   MdxH2,
@@ -11,6 +12,7 @@ import {
   MdxOrderedList,
   MdxParagraph,
   MdxUnorderedList,
+  Video,
 } from '../src/mdx'
 
 const meta: Meta = {
@@ -58,6 +60,27 @@ export const Sample: Story = {
           </MdxParagraph>
         </MdxBlockquote>
       </Box>
+    )
+  },
+}
+
+export const Media: Story = {
+  render() {
+    return (
+      <MediaProvider cloudinaryName="demo">
+        <Box display="flex" flexDirection="column" gap="8" maxW="2xl">
+          <MdxParagraph>An image and a video bounded by the media container.</MdxParagraph>
+          <Image
+            type="cloudinary"
+            src="samples/landscapes/architecture-signs"
+            alt="Stable Cloudinary demo image"
+            width={800}
+            height={500}
+            aspectRatio="standard"
+          />
+          <Video src="samples/elephants" title="Stable Cloudinary demo video" aspectRatio="wide" />
+        </Box>
+      </MediaProvider>
     )
   },
 }

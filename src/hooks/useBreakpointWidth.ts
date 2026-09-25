@@ -12,7 +12,8 @@ export function useBreakpointWidths(): Record<BreakpointName, number> {
   return useMemo(() => {
     const get = (name: string) => parseLength(String(system.token(`breakpoints.${name}`) ?? '0'))
     return {
-      base: 0,
+      // Below `sm` the viewport is treated as `sm` wide, as the 0.9.0 hook did, so a `%` size sizes a video and not a 0px one.
+      base: get('sm'),
       sm: get('sm'),
       md: get('md'),
       lg: get('lg'),

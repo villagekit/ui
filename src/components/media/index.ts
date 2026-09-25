@@ -1,4 +1,5 @@
 export {
+  defaultCloudinaryName,
   MediaProvider,
   type MediaProviderProps,
   type MediaContextValue,
