@@ -60,6 +60,8 @@
     "@chakra-ui/react": "^3.35.0",
     "@ctrl/tinycolor": "^4.1.0",
     "lodash-es": "^4.17.21",
+    "motion": "^12.38.0",
+    "react-focus-on": "^3.10.2",
     "react-icons": "^5.2.1"
   },
   "devDependencies": {
