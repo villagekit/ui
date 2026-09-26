@@ -49,29 +49,35 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(function Section
     childClassName: 'vk-row',
   })
 
-  // The default `yborder-bg` mode is the workhorse for alternating page
-  // sections — keep it quiet (just the tint) so a stack of sections reads as
-  // gentle rhythm rather than a stack of debug bands. `yborder` and
-  // `roundborder` keep visible edges for callouts, just solid instead of
-  // dashed so they don't compete with the dashed header/footer chrome.
+  // The legacy ui-page Section's three modes (packages/ui-page/src/components/Section.tsx at
+  // fce357d): the palette's 50 fill and a 2px dashed rule in its 200 shade, `yborder-bg` ruled top
+  // and bottom, `yborder` the rules alone, `roundborder` ruled on every side under an `xl` radius.
+  // These three stay the legacy author's; a new visual takes a new mode.
   const paletteCss = colorPalette
     ? mode === 'yborder-bg'
       ? {
           backgroundColor: 'colorPalette.50',
+          borderBottomWidth: 2,
+          borderColor: 'colorPalette.200',
+          borderStyle: 'dashed',
+          borderTopWidth: 2,
         }
       : mode === 'yborder'
         ? {
-            borderBottomWidth: 1,
+            borderBottomWidth: 2,
             borderColor: 'colorPalette.200',
-            borderStyle: 'solid',
-            borderTopWidth: 1,
+            borderStyle: 'dashed',
+            borderTopWidth: 2,
           }
         : {
             backgroundColor: 'colorPalette.50',
+            borderBottomWidth: 2,
             borderColor: 'colorPalette.200',
+            borderLeftWidth: 2,
             borderRadius: 'xl',
-            borderStyle: 'solid',
-            borderWidth: 1,
+            borderRightWidth: 2,
+            borderStyle: 'dashed',
+            borderTopWidth: 2,
           }
     : {}
 
