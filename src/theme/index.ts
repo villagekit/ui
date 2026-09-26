@@ -10,6 +10,7 @@ import { accordionRecipe } from '../components/Accordion.recipe'
 import { badgeRecipe } from '../components/Badge.recipe'
 import { buttonRecipe } from '../components/Button'
 import { checkboxRecipe } from '../components/Checkbox.recipe'
+import { containerRecipe } from '../components/Container.recipe'
 import { fieldRecipe } from '../components/FormLabel.recipe'
 import { headingRecipe } from '../components/Heading'
 import { inputRecipe } from '../components/Input'
@@ -79,6 +80,7 @@ export const config = defineConfig({
     recipes: {
       badge: badgeRecipe,
       button: buttonRecipe,
+      container: containerRecipe,
       heading: headingRecipe,
       input: inputRecipe,
       link: linkRecipe,

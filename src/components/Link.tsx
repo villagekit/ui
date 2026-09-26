@@ -32,10 +32,15 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(props
  * The 0.9.0 link on Chakra v2's link base (`@chakra-ui/theme` `components/link`): the `common`
  * transition over 150ms on v2's ease-out curve (v3's `ease-out` token is a different curve, so the
  * curve is written out) and the theme's `outline` shadow on keyboard focus. v3's recipe draws a
- * gray outline on any focus through its `focusRing` utility, which is set to `none` here.
+ * gray outline on any focus through its `focusRing` utility, which is set to `none` here, and
+ * lays the link out `inline-flex`, an atomic box that moves whole onto the next line; v2's wrote
+ * no display rule, so a link is `inline` and breaks across lines with its sentence (v3's
+ * `alignItems` and `gap` do nothing on an inline box). A `LinkButton` renders the button recipe's
+ * styles after this one's, so it keeps the button's `inline-flex`.
  */
 export const linkRecipe = defineRecipe({
   base: {
+    display: 'inline',
     outline: 'none',
     borderRadius: 'md',
     transitionProperty: 'common',

@@ -15,6 +15,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   return <BaseButton ref={ref} {...(props as BaseButtonProps)} />
 })
 
+/**
+ * The 0.9.0 button on Chakra v2's button sizes (`@chakra-ui/theme` `components/button`: `lg` is
+ * 48px tall at font size `lg`, `md` 40px at `md`, `sm` 32px at `sm`, `xs` 24px at `xs`, each as
+ * wide at least as it is tall), where Chakra v3's own sizes differ in height and type (`md` is
+ * 40px at `sm`, `lg` 44px at `md`). Each size writes `textStyle: 'none'` so v3's text style and
+ * its line height stay out of the merge and the base's `1.2` applies, as under v2; v3's icon
+ * sizes and gaps per size are kept. The 0.9.0 recipe wrote no sizes of its own.
+ */
 export const buttonRecipe = defineRecipe({
   base: {
     borderStyle: 'dashed',
@@ -41,6 +49,12 @@ export const buttonRecipe = defineRecipe({
     },
   },
   variants: {
+    size: {
+      xs: buttonSize('6', 'xs', '2'),
+      sm: buttonSize('8', 'sm', '3'),
+      md: buttonSize('10', 'md', '4'),
+      lg: buttonSize('12', 'lg', '6'),
+    },
     variant: {
       primary: {
         color: 'white',
@@ -107,3 +121,8 @@ export const buttonRecipe = defineRecipe({
     variant: 'primary',
   },
 })
+
+/** One Chakra v2 button size: a square minimum of `box`, the font size and the horizontal padding. */
+function buttonSize(box: string, fontSize: string, paddingX: string) {
+  return { h: box, minW: box, textStyle: 'none', fontSize, px: paddingX } as const
+}

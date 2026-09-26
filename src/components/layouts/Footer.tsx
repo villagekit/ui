@@ -46,9 +46,7 @@ export function Footer(props: FooterProps) {
   return (
     <BaseFooter {...baseFooterProps}>
       {socialLinks != null && (
-        // Chakra v3's container recipe defaults to 8xl with responsive padding; the row keeps
-        // Chakra v2's default container, a prose width with padding 4.
-        <Container maxW="prose" px="4">
+        <Container>
           <Social socialLinks={socialLinks} width="full" iconMaxWidth={8} />
         </Container>
       )}
