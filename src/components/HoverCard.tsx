@@ -71,11 +71,15 @@ export const HoverCardContainer = forwardRef<HTMLDivElement, HoverCardContainerP
         css={[
           {
             transitionDuration: 'fast',
+            // Chakra v3's `css` reads a key as a selector only when it holds `&`, starts
+            // with `@` or `_`, or names a condition; a bare `.ui-hover-card` is flattened
+            // into a property, which styles nothing and logs a kebab-case error in
+            // development.
             _focusWithin: {
-              '.ui-hover-card': focusStyle,
+              '& .ui-hover-card': focusStyle,
             },
             _hover: {
-              '.ui-hover-card': hoverStyle,
+              '& .ui-hover-card': hoverStyle,
               ...containerHoverStyle,
             },
           },
