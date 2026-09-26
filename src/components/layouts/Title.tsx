@@ -11,7 +11,7 @@ export interface TitleProps extends AnchorHeadingProps {
 }
 
 /**
- * A centered page title, an `h1` unless `as` says otherwise, with an optional `description` under it. The heading is bounded to the width of the `md` breakpoint (768px, the legacy `container.md`; `breakpoint-md` is the size token Chakra v3 generates from the breakpoint), the description to `3xl`.
+ * A centered page title, an `h1` unless `as` says otherwise, with an optional `description` under it. The heading is bounded to the width of the `md` breakpoint (768px, the legacy `container.md`; `breakpoint-md` is the size token Chakra v3 generates from the breakpoint), the description as `Description` bounds it.
  */
 export function Title(props: TitleProps) {
   const { as = 'h1', description, ...rest } = props
