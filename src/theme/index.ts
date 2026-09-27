@@ -19,6 +19,7 @@ import { navLinkRecipe } from '../components/NavLink'
 import { numberInputRecipe } from '../components/NumberInput'
 import { nativeSelectRecipe } from '../components/Select'
 import { sliderRecipe } from '../components/Slider.recipe'
+import { spinnerRecipe } from '../components/Spinner'
 import { switchRecipe } from '../components/Switch.recipe'
 import { tableRecipe } from '../components/Table.recipe'
 import { tabsRecipe } from '../components/Tabs'
@@ -85,6 +86,7 @@ export const config = defineConfig({
       input: inputRecipe,
       link: linkRecipe,
       navLink: navLinkRecipe,
+      spinner: spinnerRecipe,
       text: textRecipe,
     },
     slotRecipes: {

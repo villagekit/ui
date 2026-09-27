@@ -4,6 +4,7 @@ import {
   Spinner as BaseSpinner,
   type SpinnerProps as BaseSpinnerProps,
   VisuallyHidden,
+  defineRecipe,
 } from '@chakra-ui/react'
 import { forwardRef } from 'react'
 
@@ -35,4 +36,24 @@ export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinne
       {label ? <VisuallyHidden>{label}</VisuallyHidden> : null}
     </BaseSpinner>
   )
+})
+
+/**
+ * The 0.9.0 spinner on Chakra v2's spinner theme and component: `md` is 24px (`sizes.6`) and
+ * `xl` 48px (`sizes.12`), where Chakra v3's recipe has 20px (`sizes.5`) and 40px (`sizes.10`);
+ * `xs`, `sm` and `lg` are the same on both and stay v3's. One turn takes `0.45s`, Chakra v2's
+ * default `speed`, written as a literal because Chakra v3's durations tokens hold no 450ms
+ * value; v3's recipe turns on the `slowest` token, 500ms. `createSystem` deep-merges this
+ * recipe over v3's, so the rest of the base and the other sizes are v3's.
+ */
+export const spinnerRecipe = defineRecipe({
+  base: {
+    animationDuration: '0.45s',
+  },
+  variants: {
+    size: {
+      md: { '--spinner-size': 'sizes.6' },
+      xl: { '--spinner-size': 'sizes.12' },
+    },
+  },
 })

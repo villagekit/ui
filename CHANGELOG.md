@@ -54,6 +54,7 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 - **`Title`'s heading container is `breakpoint-md`** (768px) again, the legacy `ui-page` Title's `container.md`, so a long page title wraps where it did under 0.9.0; 1.2.0 had `2xl` (672px).
 - **`Description`'s container is `breakpoint-lg`** (1024px) again, the legacy `ui-page` Description's `container.lg`, so a page description runs to the width it did under 0.9.0 and wraps where it did; 1.2.0 had `3xl` (768px).
 - **`Spinner` announces `Loading...` again**: a visually hidden span inside the spinning element carries its `label`, `Loading...` by default, as Chakra v2's Spinner rendered under 0.9.0; an empty `label` renders none. 1.2.0 rendered Chakra v3's bare span, which assistive technology reads as nothing.
+- **`Spinner` is Chakra v2's size and speed again**: `md` is 24px and `xl` 48px, the 0.9.0 spinner's box, and one turn takes 0.45s, v2's default `speed`; 1.2.0 rendered Chakra v3's recipe, `md` at 20px, `xl` at 40px and one turn at 500ms. `xs`, `sm` and `lg` are the same on both.
 - **`InfoTooltip`'s icon is the named image it was**, `Tooltip` in the accessibility tree, so the tooltip's trigger is exposed as the 0.9.0 icon was under Chakra v2; 1.2.0 kept the `aria-label` on an svg Chakra v3's `Icon` hides with `aria-hidden`, which took the trigger and its text out of the tree.
 
 ### Changed
