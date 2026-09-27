@@ -24,6 +24,7 @@ import { switchRecipe } from '../components/Switch.recipe'
 import { tableRecipe } from '../components/Table.recipe'
 import { tabsRecipe } from '../components/Tabs'
 import { textRecipe } from '../components/Text'
+import { tooltipKeyframes } from '../components/Tooltip'
 import { colorSemanticTokens, colorTokens } from './colors'
 
 export { definePalette } from './colors'
@@ -69,6 +70,7 @@ export const config = defineConfig({
     },
   },
   theme: {
+    keyframes: tooltipKeyframes,
     tokens: {
       colors: colorTokens,
       fonts,
