@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Input, Stack } from '../src'
+import { Field, Input } from '../src'
 import { FormLabel, type FormLabelProps } from '../src/components/FormLabel'
 
 const meta: Meta<FormLabelProps> = {
@@ -15,10 +15,10 @@ type Story = StoryObj<typeof FormLabel>
 export const Basic: Story = {
   render() {
     return (
-      <Stack gap="2" maxW="sm">
+      <Field.Root maxW="sm">
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input id="email" type="email" placeholder="you@example.com" />
-      </Stack>
+      </Field.Root>
     )
   },
 }

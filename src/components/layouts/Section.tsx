@@ -35,7 +35,9 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(function Section
     index,
     backgroundImage,
     colorPalette,
-    maxW = '2xl',
+    // The legacy ui-page Section's `container.md` (768px); `breakpoint-md` is the size token
+    // Chakra v3 generates from the breakpoint, the one `Title` and `CardsLayout` take.
+    maxW = 'breakpoint-md',
     children,
     css,
     id,
