@@ -76,6 +76,17 @@ export const Tabs = {
   Indicator: TabsIndicator,
 }
 
+/**
+ * The 0.9.0 `tabsTheme` under Chakra v2's `unstyled` variant, which the 0.9.0 wrapper set on
+ * every `Tabs`: the list's dashed rule, the triggers in the heading font at the body's weight,
+ * each on its own dashed border, `primary.300` under the selected one and `primary.700` under
+ * the pointer. The `unstyled` variant here writes nothing, as v2's did, and is the recipe's
+ * default, so `Tabs.Root` renders it with no `variant` prop, and only that way: Chakra v3's
+ * `variant` prop is typed to its own five names, which the recipe cannot widen, so
+ * `variant="unstyled"` does not type-check. Chakra v3's own variants stay available by name,
+ * its default `line` among them, which writes a solid rule under the list, `fg.muted` on the
+ * unselected triggers and a solid indicator under the selected one.
+ */
 export const tabsRecipe = defineSlotRecipe({
   slots: ['root', 'list', 'trigger', 'content', 'indicator', 'contentGroup'],
   base: {
@@ -83,6 +94,9 @@ export const tabsRecipe = defineSlotRecipe({
       position: 'relative',
     },
     list: {
+      // Chakra v2's `TabList` wrote `display: flex` itself, so the rule after the triggers
+      // reached the list's far edge; v3's base writes `inline-flex`, under which it has no room.
+      display: 'flex',
       marginBottom: '2',
       overflowX: 'auto',
       '&::after': {
@@ -97,11 +111,16 @@ export const tabsRecipe = defineSlotRecipe({
       borderBottomWidth: '2px',
       borderStyle: 'dashed',
       fontFamily: 'heading',
+      // Chakra v2's tab wrote no weight, so the body's applied; v3's base writes `medium`.
+      fontWeight: 'normal',
       marginRight: '1',
       position: 'relative',
       whiteSpace: 'nowrap',
       _hover: { color: 'primary.700' },
-      _focus: { color: 'primary.700' },
+      // On `:focus` alone, not Chakra v3's `_focus`, which also matches `[data-focus]`: zag
+      // marks the selected trigger focused before any focus event, so the selected tab would
+      // take the focus color at rest, which Chakra v2's tab never did.
+      '&:focus': { color: 'primary.700' },
       _selected: {
         borderColor: 'primary.300',
         boxShadow: 'none',
@@ -117,5 +136,13 @@ export const tabsRecipe = defineSlotRecipe({
       position: 'relative',
       zIndex: 10,
     },
+  },
+  variants: {
+    variant: {
+      unstyled: {},
+    },
+  },
+  defaultVariants: {
+    variant: 'unstyled',
   },
 })
