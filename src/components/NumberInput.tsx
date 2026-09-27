@@ -19,8 +19,21 @@ export type {
   NumberInputDecrementTriggerProps,
 } from '@chakra-ui/react'
 
+/**
+ * The number input's root, white under every variant but `flushed`, where it is transparent so the
+ * underlined field shows the surface it sits on, the background the 0.9.0 wrapper passed. A
+ * caller's own `bg` still wins. The wrapper reads a plain `variant` as the 0.9.0 one did, so a
+ * responsive `variant` object reads as not `flushed`.
+ */
 const Root = forwardRef<HTMLDivElement, NumberInputRootProps>(function NumberInputRoot(props, ref) {
-  return <BaseNumberInput.Root ref={ref} bg="white" {...props} />
+  const { variant } = props
+  return (
+    <BaseNumberInput.Root
+      ref={ref}
+      bg={variant === 'flushed' ? 'transparent' : 'white'}
+      {...props}
+    />
+  )
 })
 
 /**
