@@ -53,6 +53,8 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 - **A `HoverCard` inside a hovered or focused `HoverCardContainer` takes the card's hover and focus styles again** (`accentB.100` on an `accentB.300` border under the pointer, the `outlineColor` border with focus inside), as the 0.9.0 container styled it under Chakra v2's `sx`. The container's nested selectors are written as `& .ui-hover-card`, the form Chakra v3's `css` reads as a selector; 1.2.0 kept the bare `.ui-hover-card` keys, which Chakra v3 flattened into properties, so the nested card kept its rest colors and every page that rendered a container logged Emotion's kebab-case error to the console in development.
 - **`Title`'s heading container is `breakpoint-md`** (768px) again, the legacy `ui-page` Title's `container.md`, so a long page title wraps where it did under 0.9.0; 1.2.0 had `2xl` (672px).
 - **`Description`'s container is `breakpoint-lg`** (1024px) again, the legacy `ui-page` Description's `container.lg`, so a page description runs to the width it did under 0.9.0 and wraps where it did; 1.2.0 had `3xl` (768px).
+- **`Spinner` announces `Loading...` again**: a visually hidden span inside the spinning element carries its `label`, `Loading...` by default, as Chakra v2's Spinner rendered under 0.9.0; an empty `label` renders none. 1.2.0 rendered Chakra v3's bare span, which assistive technology reads as nothing.
+- **`InfoTooltip`'s icon is the named image it was**, `Tooltip` in the accessibility tree, so the tooltip's trigger is exposed as the 0.9.0 icon was under Chakra v2; 1.2.0 kept the `aria-label` on an svg Chakra v3's `Icon` hides with `aria-hidden`, which took the trigger and its text out of the tree.
 
 ### Changed
 
