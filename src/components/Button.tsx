@@ -20,8 +20,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
  * 48px tall at font size `lg`, `md` 40px at `md`, `sm` 32px at `sm`, `xs` 24px at `xs`, each as
  * wide at least as it is tall), where Chakra v3's own sizes differ in height and type (`md` is
  * 40px at `sm`, `lg` 44px at `md`). Each size writes `textStyle: 'none'` so v3's text style and
- * its line height stay out of the merge and the base's `1.2` applies, as under v2; v3's icon
- * sizes and gaps per size are kept. The 0.9.0 recipe wrote no sizes of its own.
+ * its line height stay out of the merge and the base's `1.2` applies, as under v2, and sizes an
+ * `svg` inside the button at `1em` of the button's font, Chakra v2's `Icon` size (`w: 1em, h:
+ * 1em`), in place of v3's per-size widths (`5`, 20px, at `md`); v3's gaps per size are kept. The
+ * icon rule sits in each size because `createSystem` deep-merges this recipe over v3's and cannot
+ * delete v3's size-level key, only replace it at the same path. The 0.9.0 recipe wrote no sizes
+ * of its own.
  */
 export const buttonRecipe = defineRecipe({
   base: {
@@ -122,7 +126,19 @@ export const buttonRecipe = defineRecipe({
   },
 })
 
-/** One Chakra v2 button size: a square minimum of `box`, the font size and the horizontal padding. */
+/**
+ * One Chakra v2 button size: a square minimum of `box`, the font size, the horizontal padding
+ * and the icon at `1em` of that font. `_icon` is `& :where(svg)`, a rule inside the `recipes`
+ * cascade layer, so an explicit `boxSize`, `w` or `h` on an `Icon` still wins as a style prop
+ * emitted outside the layer; an `Icon` `size` variant is a rule in the same layer and does not.
+ */
 function buttonSize(box: string, fontSize: string, paddingX: string) {
-  return { h: box, minW: box, textStyle: 'none', fontSize, px: paddingX } as const
+  return {
+    h: box,
+    minW: box,
+    textStyle: 'none',
+    fontSize,
+    px: paddingX,
+    _icon: { width: '1em', height: '1em' },
+  } as const
 }
