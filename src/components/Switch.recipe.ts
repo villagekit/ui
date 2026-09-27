@@ -8,7 +8,10 @@ import { defineSlotRecipe } from '@chakra-ui/react'
  * The track, thumb and focus rules sit in the `solid` variant, the default, because Chakra v3's
  * recipe writes its own there and merges the chosen variant over the base, so a base rule loses
  * to them; the `raised` variant, which v2 had not, keeps v3's look. The thumb stays v3's
- * `colorPalette.contrast` when checked, white on the default palette as v2's was.
+ * `colorPalette.contrast` when checked, white on the default palette as v2's was. The track sits at
+ * the top of the root, as v2's did in its inline-block root: Chakra v3's root is an `inline-flex`
+ * that centers its items, so a root taller than the track (stretched by a caller's flex row, or
+ * beside a taller label) would move the track down from the root's top, where v2's stayed flush.
  */
 export const switchRecipe = defineSlotRecipe({
   slots: ['root', 'label', 'control', 'thumb', 'indicator'],
@@ -30,6 +33,7 @@ export const switchRecipe = defineSlotRecipe({
           // Chakra v2's track: the size's width and height inside a 2px padding.
           boxSizing: 'content-box',
           padding: '0.5',
+          alignSelf: 'flex-start',
           bg: 'gray.300',
           focusVisibleRing: 'none',
           _focusVisible: {

@@ -18,7 +18,12 @@ import { defineSlotRecipe } from '@chakra-ui/react'
  * v2's `0.4` when the field is disabled, where v3 dims it to `0.5`. With no gap, the helper and
  * error text carry v2's 8px top margin, the helper text a block and the error text a flex row as
  * v2's were, since a block root no longer lays them out as flex items; with a block label, the
- * required indicator carries v2's `marginStart: 1` in place of v3's label gap.
+ * required indicator carries v2's `marginStart: 1` in place of v3's label gap. The label's text is
+ * selectable, as v2's `FormLabel` wrote no `user-select`: Chakra v3 writes `userSelect: none`,
+ * which deep merge cannot delete, so the base writes `auto`, the initial value, over it. The
+ * `vertical` root writes `alignItems: normal`, the initial value, over v3's `flex-start`: inert on
+ * the block root, it lets a field a caller lays out as a flex row stretch its items, as v2's
+ * `FormControl`, which wrote none, did.
  */
 export const fieldRecipe = defineSlotRecipe({
   slots: [
@@ -45,6 +50,7 @@ export const fieldRecipe = defineSlotRecipe({
       transitionProperty: 'common',
       transitionDuration: 'moderate',
       opacity: '1',
+      userSelect: 'auto',
       _disabled: {
         opacity: '0.4',
       },
@@ -66,6 +72,7 @@ export const fieldRecipe = defineSlotRecipe({
       vertical: {
         root: {
           display: 'block',
+          alignItems: 'normal',
         },
       },
     },
