@@ -25,6 +25,7 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 - **`Social`**, the row of social icon links, with `SocialProps` and `SocialLinkDescriptor` (`href`, `isExternal`, `label`, `Icon`). Each icon carries its link's name; route links go through the framework's link component.
 - **`InputGroup` is re-exported from Chakra again**, with `InputGroupProps`. Chakra v3's one component replaces the 0.9.0 `InputGroup`, `InputLeftElement`, `InputRightElement` and the three addons: `startElement` and `endElement` hold what the left and right elements held, `startAddon` and `endAddon` what the addons held. It takes the package's `Input` as its one child, for a search bar with a trailing button or icon.
 - **`Tooltip` and `InfoTooltip` take `portalProps` again**: `portalProps.containerRef` names the element the tooltip is portaled into, the document body when absent, the shape Chakra v2's `Tooltip` took and the 0.9.0 wrappers passed through, so a tooltip inside an element in fullscreen mode (the engine's parameter and dimension tooltips in the sandbox) renders inside that element; 1.2.0 portaled every tooltip to the body, which fullscreen hides.
+- **`Tooltip` and `InfoTooltip` take `css`**: styles for the tooltip's content, merged over the wrapper's own so a caller's font size or padding wins, what the 0.9.0 wrappers' `sx` did for the engine's dimensions tooltip (`fontSize: 'sm', padding: 4`); 1.2.0 took no style.
 
 ### Fixed
 
@@ -57,6 +58,7 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 - **`Spinner` announces `Loading...` again**: a visually hidden span inside the spinning element carries its `label`, `Loading...` by default, as Chakra v2's Spinner rendered under 0.9.0; an empty `label` renders none. 1.2.0 rendered Chakra v3's bare span, which assistive technology reads as nothing.
 - **`Spinner` is Chakra v2's size and speed again**: `md` is 24px and `xl` 48px, the 0.9.0 spinner's box, and one turn takes 0.45s, v2's default `speed`; 1.2.0 rendered Chakra v3's recipe, `md` at 20px, `xl` at 40px and one turn at 500ms. `xs`, `sm` and `lg` are the same on both.
 - **`InfoTooltip`'s icon is the named image it was**, `Tooltip` in the accessibility tree, so the tooltip's trigger is exposed as the 0.9.0 icon was under Chakra v2; 1.2.0 kept the `aria-label` on an svg Chakra v3's `Icon` hides with `aria-hidden`, which took the trigger and its text out of the tree.
+- **`Tooltip` is Chakra v2's tooltip on the 0.9.0 wrapper again**: `whiteAlpha.900` text on the document's line height (24px at the wrapper's `md` type, 21px at `sm`), a 10px arrow kept 8px from the tooltip's corners; 1.2.0 wrote `white` text on Chakra v3's `xs` text style, a 1rem line that packed a two-line label, an 8px arrow and zag's 4px arrow padding.
 
 ### Changed
 
