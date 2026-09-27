@@ -3,7 +3,7 @@
 
 import { Box, Flex, Icon, useDisclosure } from '@chakra-ui/react'
 import type { FC } from 'react'
-import { useCallback, useEffect, useId } from 'react'
+import { useCallback, useEffect, useId, useRef } from 'react'
 import { FocusOn } from 'react-focus-on'
 import { FaBars, FaTimes } from 'react-icons/fa'
 
@@ -54,11 +54,23 @@ export function NavHeader(props: NavHeaderProps) {
     autoFocusElement?.focus()
   }, [])
 
+  const isFocusLockEnabled = isMobile && isMobileMenuOpen
+
+  // Focus returns to the toggle only when the lock is released. React StrictMode's development
+  // remount of the lock's trap fires its return-focus while the menu is still open, which would
+  // pull focus off the panel `handleActivation` focused. The unmounting trap holds the callback of
+  // the last render while the menu was open, so it reads the current state through a ref written in
+  // render: the trap unmounts in the commit's mutation phase, before a layout effect could write it.
+  const isFocusLockEnabledRef = useRef(isFocusLockEnabled)
+  isFocusLockEnabledRef.current = isFocusLockEnabled
+  const shouldReturnFocus = useCallback(() => !isFocusLockEnabledRef.current, [])
+
   return (
     <Box as="header" role="banner" position="sticky" top={0} width="100%" zIndex="sticky">
       <FocusOn
-        enabled={isMobile && isMobileMenuOpen}
+        enabled={isFocusLockEnabled}
         autoFocus={true}
+        returnFocus={shouldReturnFocus}
         onEscapeKey={onHideMobileMenu}
         onActivation={handleActivation}
       >
