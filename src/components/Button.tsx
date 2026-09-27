@@ -117,7 +117,10 @@ export const buttonRecipe = defineRecipe({
           },
           _active: { color: 'primary.500' },
         },
-        _focus: { color: 'gray.700' },
+        // The focus color is a second variable, for a consumer whose focus color is its rest color
+        // (the sandbox's off toggles, which erased the v2 variant's focus mapping with an `sx`
+        // `_focus: {}`; an empty `_focus` in the v3 `css` prop emits no rule, so it beats nothing).
+        _focus: { color: 'var(--toolbar-focus-color, {colors.gray.700})' },
       },
     },
   },
