@@ -11,7 +11,11 @@ export const Select = NativeSelect
 /**
  * The native select on Chakra v2's input sizes and focus (see `inputRecipe`): the field's height,
  * font size, padding and radius per size, the room for the chevron kept, and the focused field
- * bordered in the theme's `outlineColor` with no outline over it.
+ * bordered in the theme's `outlineColor` with no outline over it. The `outline` field, the
+ * default variant, is white, the background the 0.9.0 `Select` wrapper passed, in place of
+ * Chakra v3's transparent one; the white sits in the variant and not the base because the recipe
+ * merges the chosen variant over the base, so a base `bg` would lose to v3's `transparent`. A
+ * caller's own `bg` prop still wins over it.
  */
 export const nativeSelectRecipe = defineSlotRecipe({
   className: 'chakra-native-select',
@@ -27,6 +31,11 @@ export const nativeSelectRecipe = defineSlotRecipe({
     },
   },
   variants: {
+    variant: {
+      outline: {
+        field: { bg: 'white' },
+      },
+    },
     size: {
       xs: selectSize('xs', '2', 'xs', 'sizes.6'),
       sm: selectSize('sm', '3', 'xs', 'sizes.8'),
