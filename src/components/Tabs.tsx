@@ -80,7 +80,9 @@ export const Tabs = {
  * The 0.9.0 `tabsTheme` under Chakra v2's `unstyled` variant, which the 0.9.0 wrapper set on
  * every `Tabs`: the list's dashed rule, the triggers in the heading font at the body's weight,
  * each on its own dashed border, `primary.300` under the selected one and `primary.700` under
- * the pointer. The `unstyled` variant here writes nothing, as v2's did, and is the recipe's
+ * the pointer, their colors fading over the `common` properties in 200ms and the theme's
+ * `outline` shadow on an unselected trigger under keyboard focus; at `lg`, Chakra v2's size.
+ * The `unstyled` variant here writes nothing, as v2's did, and is the recipe's
  * default, so `Tabs.Root` renders it with no `variant` prop, and only that way: Chakra v3's
  * `variant` prop is typed to its own five names, which the recipe cannot widen, so
  * `variant="unstyled"` does not type-check. Chakra v3's own variants stay available by name,
@@ -116,11 +118,24 @@ export const tabsRecipe = defineSlotRecipe({
       marginRight: '1',
       position: 'relative',
       whiteSpace: 'nowrap',
+      transitionProperty: 'common',
+      transitionDuration: 'moderate',
       _hover: { color: 'primary.700' },
       // On `:focus` alone, not Chakra v3's `_focus`, which also matches `[data-focus]`: zag
       // marks the selected trigger focused before any focus event, so the selected tab would
       // take the focus color at rest, which Chakra v2's tab never did.
       '&:focus': { color: 'primary.700' },
+      // Chakra v2's tab carried a transparent 2px outline, which forced colors mode draws on
+      // focus; v3's trigger writes `outline: 0`, which draws nothing.
+      outline: '2px solid transparent',
+      // Chakra v2's keyboard focus: the theme's `outline` shadow, which the selected trigger's
+      // `boxShadow: none` blanked, so only an unselected trigger shows it.
+      _focusVisible: {
+        outline: '2px solid transparent',
+        outlineColor: 'transparent',
+        boxShadow: 'outline',
+        _selected: { boxShadow: 'none' },
+      },
       _selected: {
         borderColor: 'primary.300',
         boxShadow: 'none',
@@ -140,6 +155,24 @@ export const tabsRecipe = defineSlotRecipe({
   variants: {
     variant: {
       unstyled: {},
+    },
+    size: {
+      // Chakra v2's `lg` tab: 18px type on 12px by 16px padding, as tall as its text, with no
+      // minimum width or gap, and the panel padded 16px; Chakra v3's `lg` fixes the list and the
+      // triggers at 44px through `--tabs-height` and writes a text style, a gap and 18px panels.
+      lg: {
+        root: {
+          '--tabs-height': 'auto',
+          '--tabs-content-padding': 'spacing.4',
+        },
+        trigger: {
+          textStyle: 'none',
+          fontSize: 'lg',
+          gap: 'normal',
+          py: '3',
+          px: '4',
+        },
+      },
     },
   },
   defaultVariants: {
