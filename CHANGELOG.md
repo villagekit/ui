@@ -24,6 +24,7 @@ The package imported `next/link`, `next/navigation` and `next/image` uncondition
 - **`Link` takes `isExternal` again**, rendering `target="_blank" rel="noopener"`, what Chakra v2's `Link` rendered for the 0.9.0 component.
 - **`Social`**, the row of social icon links, with `SocialProps` and `SocialLinkDescriptor` (`href`, `isExternal`, `label`, `Icon`). Each icon carries its link's name; route links go through the framework's link component.
 - **`InputGroup` is re-exported from Chakra again**, with `InputGroupProps`. Chakra v3's one component replaces the 0.9.0 `InputGroup`, `InputLeftElement`, `InputRightElement` and the three addons: `startElement` and `endElement` hold what the left and right elements held, `startAddon` and `endAddon` what the addons held. It takes the package's `Input` as its one child, for a search bar with a trailing button or icon.
+- **`Tooltip` and `InfoTooltip` take `portalProps` again**: `portalProps.containerRef` names the element the tooltip is portaled into, the document body when absent, the shape Chakra v2's `Tooltip` took and the 0.9.0 wrappers passed through, so a tooltip inside an element in fullscreen mode (the engine's parameter and dimension tooltips in the sandbox) renders inside that element; 1.2.0 portaled every tooltip to the body, which fullscreen hides.
 
 ### Fixed
 
